@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PTR4 EFT Tracker</title>
+<style>
+  :root {
+    --bg: #0b0b12;
+    --panel: #151722;
+    --panel2: #1c1f2d;
+    --line: rgba(255,255,255,.08);
+    --text: #f5f7fb;
+    --muted: #a7afc3;
+    --blurple: #6E38D5;
+    --violet: #440099;
+    --aqua: #2ED7DE;
+    --green: #31c46c;
+    --yellow: #ffcc4d;
+    --red: #EF3340;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(180deg, #0a0b11 0%, #0d1018 100%);
+    color: var(--text);
+  }
+  .wrap {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 18px;
+  }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  h1, h2, h3, h4, p { margin-top: 0; }
+  .sub { color: var(--muted); font-size: 13px; }
+  .line {
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--blurple), var(--violet), var(--aqua));
+    margin-top: 10px;
+  }
+  .controls {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  button, .fake-btn {
+    background: var(--blurple);
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+  }
+  button.secondary, .fake-btn.secondary {
+    background: #23283a;
+    border: 1px solid var(--line);
+  }
+  input, select, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    background: #10131d;
+    color: white;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+  label {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    font-weight: 700;
+  }
+  .grid-6 {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+  }
+  .grid-5 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .kpi {
+    background: var(--panel2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px;
+  }
+  .kpi .label {
+    margin-bottom: 8px;
+  }
+  .kpi .value {
+    font-size: 28px;
+    font-weight: 800;
+  }
+  .green { color: var(--green); }
+  .yellow { color: var(--yellow); }
+  .red { color: var(--red); }
+  .board {
+    background: var(--panel2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 12px;
+  }
+  .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 0;
+    border-top: 1px solid rgba(255,255,255,.06);
+  }
+  .row:first-child { border-top: none; }
+  .meta { color: var(--muted); font-size: 12px; }
+  .clubs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .club {
+    background: linear-gradient(180deg, #1a1d2b 0%, #131622 100%);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 14px;
+  }
+  .club-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .badge {
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 800;
+    border: 1px solid var(--line);
+    text-transform: uppercase;
+  }
+  .badge.green { background: rgba(49,196,108,.12); color: var(--green); }
+  .badge.yellow { background: rgba(255,204,77,.12); color: var(--yellow); }
+  .badge.red { background: rgba(239,51,64,.12); color: var(--red); }
+  .club-inputs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .stat {
+    background: rgba(255,255,255,.03);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px;
+  }
+  .stat .t {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .stat .v {
+    margin-top: 6px;
+    font-size: 22px;
+    font-weight: 800;
+  }
+  .reasons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .reason-box {
+    background: rgba(255,255,255,.03);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px;
+  }
+  .reason-box h4 {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    margin-bottom: 8px;
+  }
+  .reason-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 6px 0;
+    border-top: 1px solid rgba(255,255,255,.05);
+    font-size: 12px;
+  }
+  .reason-item:first-child { border-top: none; }
+  .coach {
+    margin-top: 12px;
+    background: rgba(46,215,222,.08);
+    border: 1px solid rgba(46,215,222,.16);
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 13px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th, td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    text-align: left;
+  }
+  th { color: var(--muted); text-transform: uppercase; font-size: 11px; }
+  .hidden-tv .entry-panel,
+  .hidden-tv .filters-panel,
+  .hidden-tv .data-panel,
+  .hidden-tv .top-actions-only {
+    display: none !important;
+  }
+  .small {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  @media (max-width: 1200px) {
+    .grid-6, .grid-5, .grid-4, .grid-3, .grid-2, .clubs, .club-inputs, .stats, .reasons {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="panel">
+    <div class="topbar">
+      <div>
+        <h1>PTR4 EFT TRACKER</h1>
+        <div class="sub">Bundled build with visible Starting EFT and Club Goal inputs on every club card. Area map included for Stephon, Domenick, Nathan, and Jeremy.</div>
+        <div class="line"></div>
+      </div>
+      <div class="controls">
+        <button class="secondary top-actions-only" onclick="syncRegionBaseline()">Sync Region Baseline</button>
+        <button class="secondary top-actions-only" onclick="toggleTVMode()">TV Mode</button>
+        <button class="secondary top-actions-only" onclick="rollMonth()">Roll Month</button>
+        <button class="secondary top-actions-only" onclick="exportData()">Export</button>
+        <label class="fake-btn secondary top-actions-only">
+          Import
+          <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel entry-panel">
+    <h2>Single Entry Bar</h2>
+    <div class="grid-6">
+      <div>
+        <label>Club</label>
+        <select id="entryClub"></select>
+      </div>
+      <div>
+        <label>Type</label>
+        <select id="entryType" onchange="refreshReasonOptions()">
+          <option value="sale">Sale</option>
+          <option value="cancel">Cancel</option>
+          <option value="delinquency">Delinquency</option>
+          <option value="chargeback">Chargeback</option>
+          <option value="recovered">Recovered EFT</option>
+        </select>
+      </div>
+      <div>
+        <label>Reason</label>
+        <select id="entryReason"></select>
+      </div>
+      <div>
+        <label>Amount</label>
+        <input id="entryAmount" type="number" step="0.01" placeholder="0.00">
+      </div>
+      <div>
+        <label>Date</label>
+        <input id="entryDate" type="date">
+      </div>
+      <div>
+        <label>Note</label>
+        <input id="entryNote" type="text" placeholder="Optional">
+      </div>
+    </div>
+    <div style="margin-top:12px">
+      <button onclick="addEntry()">Add Entry</button>
+    </div>
+  </div>
+
+  <div class="panel filters-panel">
+    <h2>Region Controls</h2>
+    <div class="grid-5">
+      <div>
+        <label>View</label>
+        <select id="datePreset" onchange="applyPreset()">
+          <option value="month">Month to Date</option>
+          <option value="week">Week to Date</option>
+          <option value="closeout">Closeout Only (Last 7 Days)</option>
+          <option value="custom">Custom Range</option>
+          <option value="all">All Entries</option>
+        </select>
+      </div>
+      <div>
+        <label>Start</label>
+        <input id="filterStart" type="date" onchange="render()">
+      </div>
+      <div>
+        <label>End</label>
+        <input id="filterEnd" type="date" onchange="render()">
+      </div>
+      <div>
+        <label>Region Starting EFT</label>
+        <input id="regionStart" type="number" step="0.01" placeholder="0.00" oninput="saveState(); render();">
+      </div>
+      <div>
+        <label>Region Goal</label>
+        <input id="regionGoal" type="number" step="0.01" placeholder="0.00" oninput="saveState(); render();">
+      </div>
+    </div>
+    <div class="small" style="margin-top:10px;">Use club cards for Starting EFT by location. Use Sync Region Baseline when you want the region baseline to match club totals.</div>
+  </div>
+
+  <div class="panel">
+    <h2>Region Rollup</h2>
+    <div id="activeFilter" class="sub" style="margin-bottom:12px;"></div>
+    <div class="grid-6">
+      <div class="kpi"><div class="label">Region Start</div><div class="value" id="kpiStart">$0</div></div>
+      <div class="kpi"><div class="label">Sales Added</div><div class="value green" id="kpiSales">$0</div></div>
+      <div class="kpi"><div class="label">Hard Loss</div><div class="value red" id="kpiCancel">$0</div></div>
+      <div class="kpi"><div class="label">Soft Loss</div><div class="value red" id="kpiSoft">$0</div></div>
+      <div class="kpi"><div class="label">Recovered</div><div class="value green" id="kpiRecovered">$0</div></div>
+      <div class="kpi"><div class="label">Projected EFT</div><div class="value" id="kpiProjected">$0</div><div class="small" id="kpiPace"></div></div>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-bottom:16px;">
+    <div class="board">
+      <h3>Top Net Gainers</h3>
+      <div id="boardGainers"></div>
+    </div>
+    <div class="board">
+      <h3>Biggest EFT Loss Exposure</h3>
+      <div id="boardLosses"></div>
+    </div>
+    <div class="board">
+      <h3>Reason-Code Rollup</h3>
+      <div id="boardReasons"></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Club Cards</h2>
+    <div class="small" style="margin-bottom:12px;">Each club card includes visible Starting EFT and Club Goal inputs.</div>
+    <div id="clubsGrid" class="clubs"></div>
+  </div>
+
+  <div class="panel data-panel">
+    <h2>Entry Log</h2>
+    <div style="overflow:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Club</th>
+            <th>Type</th>
+            <th>Reason</th>
+            <th>Amount</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody id="logBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const AREA_MAP = {
+  Stephon: ["Avon Park","Bushnell","Clermont","Frostproof","Kissimmee","Lady Lake","Lake Wales","Ormond Beach","Palm Coast","Pensacola","Summerfield","Temple Terrace","Wildwood","Windermere"],
+  Domenick: ["Sandersville, GA","Perry, GA","Barnesville, GA","Fruit Cove, FL","Folkston, GA","Baxley, GA","Alma, GA","Hampton, VA","Chesapeake, VA","Stafford, VA"],
+  Nathan: ["Ashland","West Franklin","Franklin KY","Franklin TN","Jasper","Lewisburg","Mt Washington","Sanford","Clayton"],
+  Jeremy: ["Little Rock, AR","Greenbrier, AR","Mountain Home, AR","Clarksville, AR","Morrilton, AR","Poteau, OK","Waynesville, MO","Russellville, AR","West Plains, MO","Greenwood, AR","Blytheville, AR","Newport, AR"]
+};
+
+function normalizeAreaClubName(name){
+  return String(name || '').toLowerCase().replace(/[^a-z0-9]/g,'').trim();
+}
+
+function getAreaByClubName(clubName){
+  const clubNorm = normalizeAreaClubName(clubName);
+  const order = ['Stephon','Domenick','Nathan','Jeremy'];
+  for (const area of order){
+    const clubs = AREA_MAP[area] || [];
+    for (const c of clubs){
+      const cNorm = normalizeAreaClubName(c);
+      if (clubNorm === cNorm || clubNorm.includes(cNorm) || cNorm.includes(clubNorm)) return area;
+    }
+  }
+  return 'Unassigned';
+}
+
+const CLUBS = ["Avon Park", "Bushnell", "Clermont", "Frostproof", "Kissimmee", "Lady Lake", "Lake Wales", "Ormond Beach", "Palm Coast", "Pensacola", "Summerfield", "Temple Terrace", "Wildwood", "Windermere"];
+const REASONS = {
+  sale: ["New EFT", "Upgrade", "Upsell", "Winback", "Other"],
+  cancel: ["Moved", "Medical", "Financial", "No Usage / No Time", "Expectation / Service Issue", "Transferred Out", "Other"],
+  delinquency: ["Card Declined", "Insufficient Funds", "Expired Card", "No Response", "Pending Collections", "Stopped Training / Ghosted", "Other"],
+  chargeback: ["Chargeback / Dispute", "Fraud Claim", "Bank Reversal", "Other"],
+  recovered: ["Paid Current", "Paid Past Due", "Reinstated", "Chargeback Resolved", "Other"]
+};
+
+function defaultState() {
+  const clubData = {};
+  CLUBS.forEach(c => {
+    clubData[c] = { startingEFT: 0, goal: 0, entries: [], carryover: [] };
+  });
+  return {
+    regionStart: 0,
+    regionGoal: 0,
+    tvMode: false,
+    currentMonth: monthKey(new Date()),
+    clubData
+  };
+}
+
+let state = loadState();
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem("pt_eft_command_center_fixed");
+    if (!raw) return defaultState();
+    const parsed = JSON.parse(raw);
+    const base = defaultState();
+    const merged = Object.assign(base, parsed);
+    CLUBS.forEach(c => {
+      merged.clubData[c] = Object.assign(base.clubData[c], merged.clubData[c] || {});
+      merged.clubData[c].entries = Array.isArray(merged.clubData[c].entries) ? merged.clubData[c].entries : [];
+      merged.clubData[c].carryover = Array.isArray(merged.clubData[c].carryover) ? merged.clubData[c].carryover : [];
+    });
+    return merged;
+  } catch (e) {
+    return defaultState();
+  }
+}
+
+function saveState() {
+  state.regionStart = Number(document.getElementById("regionStart")?.value || state.regionStart || 0);
+  state.regionGoal = Number(document.getElementById("regionGoal")?.value || state.regionGoal || 0);
+  localStorage.setItem("pt_eft_command_center_fixed", JSON.stringify(state));
+}
+
+function money(n) {
+  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(Number(n || 0));
+}
+
+function monthKey(d) {
+  const x = new Date(d);
+  return x.toISOString().slice(0,7);
+}
+
+function today() {
+  return new Date().toISOString().slice(0,10);
+}
+
+function startOfMonthStr() {
+  const d = new Date();
+  d.setDate(1);
+  return d.toISOString().slice(0,10);
+}
+
+function startOfWeekStr() {
+  const d = new Date();
+  const day = d.getDay();
+  const diff = day === 0 ? 6 : day - 1;
+  d.setDate(d.getDate() - diff);
+  return d.toISOString().slice(0,10);
+}
+
+function last7Str() {
+  const d = new Date();
+  d.setDate(d.getDate() - 6);
+  return d.toISOString().slice(0,10);
+}
+
+function init() {
+  document.getElementById("entryClub").innerHTML = CLUBS.map(c => `<option value="${c}">${c}</option>`).join("");
+  document.getElementById("entryDate").value = today();
+  document.getElementById("regionStart").value = state.regionStart || "";
+  document.getElementById("regionGoal").value = state.regionGoal || "";
+  refreshReasonOptions();
+  applyPreset(true);
+  document.body.classList.toggle("hidden-tv", !!state.tvMode);
+  render();
+}
+
+function refreshReasonOptions() {
+  const type = document.getElementById("entryType").value;
+  document.getElementById("entryReason").innerHTML = REASONS[type].map(r => `<option value="${r}">${r}</option>`).join("");
+}
+
+function applyPreset(initial=false) {
+  const preset = document.getElementById("datePreset").value;
+  if (preset === "month") {
+    document.getElementById("filterStart").value = startOfMonthStr();
+    document.getElementById("filterEnd").value = today();
+  } else if (preset === "week") {
+    document.getElementById("filterStart").value = startOfWeekStr();
+    document.getElementById("filterEnd").value = today();
+  } else if (preset === "closeout") {
+    document.getElementById("filterStart").value = last7Str();
+    document.getElementById("filterEnd").value = today();
+  } else if (preset === "all") {
+    document.getElementById("filterStart").value = "";
+    document.getElementById("filterEnd").value = "";
+  }
+  if (!initial) render();
+}
+
+function inRange(dateStr) {
+  const start = document.getElementById("filterStart").value;
+  const end = document.getElementById("filterEnd").value;
+  if (start && dateStr < start) return false;
+  if (end && dateStr > end) return false;
+  return true;
+}
+
+function addEntry() {
+  const club = document.getElementById("entryClub").value;
+  const type = document.getElementById("entryType").value;
+  const reason = document.getElementById("entryReason").value;
+  const amount = Number(document.getElementById("entryAmount").value || 0);
+  const date = document.getElementById("entryDate").value || today();
+  const note = document.getElementById("entryNote").value || "";
+  if (!club || amount <= 0) {
+    alert("Enter a club and valid amount.");
+    return;
+  }
+  state.clubData[club].entries.push({
+    id: String(Date.now() + Math.random()),
+    type, reason, amount, date, note, month: monthKey(date), resolved: false
+  });
+  document.getElementById("entryAmount").value = "";
+  document.getElementById("entryNote").value = "";
+  saveState();
+  render();
+}
+
+function clubTotals(club) {
+  const cd = state.clubData[club];
+  const totals = {
+    sales: 0, cancel: 0, delinquency: 0, chargeback: 0, recovered: 0,
+    reasonsCancel: {}, reasonsSoft: {}, topReason: null
+  };
+  cd.entries.filter(e => inRange(e.date)).forEach(e => {
+    if (e.type === "sale") totals.sales += e.amount;
+    if (e.type === "cancel") {
+      totals.cancel += e.amount;
+      totals.reasonsCancel[e.reason] = (totals.reasonsCancel[e.reason] || 0) + e.amount;
+    }
+    if (e.type === "delinquency") {
+      totals.delinquency += e.amount;
+      totals.reasonsSoft[e.reason] = (totals.reasonsSoft[e.reason] || 0) + e.amount;
+    }
+    if (e.type === "chargeback") {
+      totals.chargeback += e.amount;
+      totals.reasonsSoft[e.reason] = (totals.reasonsSoft[e.reason] || 0) + e.amount;
+    }
+    if (e.type === "recovered") totals.recovered += e.amount;
+  });
+  totals.soft = totals.delinquency + totals.chargeback;
+  totals.net = totals.sales - totals.cancel - totals.soft + totals.recovered;
+  totals.projected = Number(cd.startingEFT || 0) + totals.net;
+  const merged = Object.assign({}, totals.reasonsCancel, totals.reasonsSoft);
+  const top = Object.entries(merged).sort((a,b)=>b[1]-a[1])[0];
+  totals.topReason = top ? top[0] : "None";
+  return totals;
+}
+
+function regionTotals() {
+  let sales=0, cancel=0, soft=0, recovered=0;
+  let reasons = {};
+  CLUBS.forEach(c => {
+    const t = clubTotals(c);
+    sales += t.sales;
+    cancel += t.cancel;
+    soft += t.soft;
+    recovered += t.recovered;
+    Object.entries(t.reasonsCancel).forEach(([k,v]) => reasons[k] = (reasons[k] || 0) + v);
+    Object.entries(t.reasonsSoft).forEach(([k,v]) => reasons[k] = (reasons[k] || 0) + v);
+  });
+  const start = Number(document.getElementById("regionStart").value || 0);
+  return { start, sales, cancel, soft, recovered, projected: start + sales - cancel - soft + recovered, reasons };
+}
+
+function statusClass(net) {
+  if (net >= 0) return "green";
+  if (net > -750) return "yellow";
+  return "red";
+}
+
+function statusText(net) {
+  if (net >= 0) return "Green";
+  if (net > -750) return "Yellow";
+  return "Red";
+}
+
+function coachLine(t) {
+  if (t.soft > t.cancel && t.topReason !== "None") return `Top issue: ${t.topReason}. Push card updates, unpaid invoice calls, and same-day recovery outreach.`;
+  if (t.cancel > 0 && t.topReason !== "None") return `Top issue: ${t.topReason}. Tighten saves, expectation setting, and at-risk follow-up.`;
+  if (t.sales <= 0) return "No EFT added in view. Push same-day FCs, floor pulls, and direct asks.";
+  return "Maintain EFT adds and protect current book with proactive follow-up.";
+}
+
+function syncRegionBaseline() {
+  let total = 0;
+  CLUBS.forEach(c => total += Number(state.clubData[c].startingEFT || 0));
+  document.getElementById("regionStart").value = Math.round(total * 100) / 100;
+  saveState();
+  render();
+}
+
+function updateClubField(club, field, value) {
+  state.clubData[club][field] = Number(value || 0);
+  saveState();
+  render();
+}
+
+function toggleTVMode() {
+  state.tvMode = !state.tvMode;
+  document.body.classList.toggle("hidden-tv", state.tvMode);
+  saveState();
+}
+
+function exportData() {
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "pt_eft_command_center_fixed_export.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const imported = JSON.parse(e.target.result);
+      state = Object.assign(defaultState(), imported);
+      saveState();
+      render();
+    } catch(err) {
+      alert("Import failed.");
+    }
+  };
+  reader.readAsText(file);
+}
+
+function rollMonth() {
+  CLUBS.forEach(c => {
+    const cd = state.clubData[c];
+    const unresolved = cd.entries.filter(e => (e.type === "delinquency" || e.type === "chargeback") && !e.resolved);
+    cd.carryover = unresolved.map(e => ({
+      originalId: e.id,
+      type: e.type,
+      reason: e.reason,
+      amount: e.amount,
+      carriedFrom: e.month
+    }));
+  });
+  state.currentMonth = monthKey(new Date());
+  saveState();
+  alert("Open delinquencies and chargebacks carried forward as pipeline at $0 new-month loss until recovered.");
+}
+
+function renderKPIs() {
+  const r = regionTotals();
+  document.getElementById("activeFilter").textContent = "Active Filter: " + document.getElementById("datePreset").selectedOptions[0].textContent;
+  document.getElementById("kpiStart").textContent = money(r.start);
+  document.getElementById("kpiSales").textContent = money(r.sales);
+  document.getElementById("kpiCancel").textContent = money(r.cancel);
+  document.getElementById("kpiSoft").textContent = money(r.soft);
+  document.getElementById("kpiRecovered").textContent = money(r.recovered);
+  document.getElementById("kpiProjected").textContent = money(r.projected);
+
+  const goal = Number(document.getElementById("regionGoal").value || 0);
+  const pace = document.getElementById("kpiPace");
+  if (goal > 0) {
+    const diff = r.projected - goal;
+    pace.textContent = diff >= 0 ? `Ahead of goal by ${money(diff)}` : `Behind goal by ${money(Math.abs(diff))}`;
+    pace.className = diff >= 0 ? "small green" : "small red";
+  } else {
+    pace.textContent = "Set region goal to activate pace view";
+    pace.className = "small";
+  }
+}
+
+function renderBoards() {
+  const stats = CLUBS.map(c => {
+    const t = clubTotals(c);
+    return { club: c, ...t };
+  });
+  const gainers = [...stats].sort((a,b)=>b.net-a.net).slice(0,5);
+  const losses = [...stats].sort((a,b)=>(b.cancel+b.soft)-(a.cancel+a.soft)).slice(0,5);
+  const reasons = Object.entries(regionTotals().reasons).sort((a,b)=>b[1]-a[1]).slice(0,8);
+
+  document.getElementById("boardGainers").innerHTML = gainers.map(x => `
+    <div class="row">
+      <div><strong>${x.club}</strong><div class="meta">Sales ${money(x.sales)} • Loss ${money(x.cancel + x.soft)}</div></div>
+      <div class="${statusClass(x.net)}"><strong>${money(x.net)}</strong></div>
+    </div>`).join("") || '<div class="small">No data.</div>';
+
+  document.getElementById("boardLosses").innerHTML = losses.map(x => `
+    <div class="row">
+      <div><strong>${x.club}</strong><div class="meta">Top driver: ${x.topReason}</div></div>
+      <div class="red"><strong>${money(x.cancel + x.soft)}</strong></div>
+    </div>`).join("") || '<div class="small">No data.</div>';
+
+  document.getElementById("boardReasons").innerHTML = reasons.map(([k,v]) => `
+    <div class="row">
+      <div><strong>${k}</strong></div>
+      <div>${money(v)}</div>
+    </div>`).join("") || '<div class="small">No reason-code loss in current view.</div>';
+}
+
+function topFive(map) {
+  return Object.entries(map).sort((a,b)=>b[1]-a[1]).slice(0,5);
+}
+
+function renderClubs() {
+  const html = CLUBS.map(club => {
+    const cd = state.clubData[club];
+    const t = clubTotals(club);
+    const cancelReasons = topFive(t.reasonsCancel);
+    const softReasons = topFive(t.reasonsSoft);
+    return `
+      <div class="club">
+        <div class="club-head">
+          <h3>${club}</h3>
+          <div class="badge ${statusClass(t.net)}">${statusText(t.net)}</div>
+        </div>
+
+        <div class="club-inputs">
+          <div>
+            <label>Starting EFT</label>
+            <input type="number" step="0.01" value="${cd.startingEFT || ""}" oninput="updateClubField('${club}','startingEFT',this.value)">
+          </div>
+          <div>
+            <label>Club Goal</label>
+            <input type="number" step="0.01" value="${cd.goal || ""}" oninput="updateClubField('${club}','goal',this.value)">
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><div class="t">Starting EFT</div><div class="v">${money(cd.startingEFT)}</div></div>
+          <div class="stat"><div class="t">Sales Added</div><div class="v green">${money(t.sales)}</div></div>
+          <div class="stat"><div class="t">Recovered</div><div class="v green">${money(t.recovered)}</div></div>
+          <div class="stat"><div class="t">Cancels</div><div class="v red">${money(t.cancel)}</div></div>
+          <div class="stat"><div class="t">Soft Loss</div><div class="v red">${money(t.soft)}</div></div>
+          <div class="stat"><div class="t">Projected EFT</div><div class="v ${statusClass(t.net)}">${money(t.projected)}</div></div>
+        </div>
+
+        <div class="reasons">
+          <div class="reason-box">
+            <h4>Cancel Reasons</h4>
+            ${cancelReasons.length ? cancelReasons.map(([k,v]) => `<div class="reason-item"><span>${k}</span><strong>${money(v)}</strong></div>`).join("") : '<div class="small">No cancel loss in view.</div>'}
+          </div>
+          <div class="reason-box">
+            <h4>Delinq / Chargeback Reasons</h4>
+            ${softReasons.length ? softReasons.map(([k,v]) => `<div class="reason-item"><span>${k}</span><strong>${money(v)}</strong></div>`).join("") : '<div class="small">No soft loss in view.</div>'}
+          </div>
+        </div>
+
+        <div class="coach">${coachLine(t)}</div>
+      </div>
+    `;
+  }).join("");
+  document.getElementById("clubsGrid").innerHTML = html;
+}
+
+function renderLog() {
+  const rows = [];
+  CLUBS.forEach(club => {
+    state.clubData[club].entries.filter(e => inRange(e.date)).forEach(e => {
+      rows.push({ club, ...e });
+    });
+  });
+  rows.sort((a,b) => (a.date < b.date ? 1 : -1));
+  document.getElementById("logBody").innerHTML = rows.map(r => `
+    <tr>
+      <td>${r.date}</td>
+      <td>${r.club}</td>
+      <td>${r.type}</td>
+      <td>${r.reason}</td>
+      <td>${money(r.amount)}</td>
+      <td>${r.note || ""}</td>
+    </tr>`).join("") || '<tr><td colspan="6" class="small">No entries in current view.</td></tr>';
+}
+
+function render() {
+  renderKPIs();
+  renderBoards();
+  renderClubs();
+  renderLog();
+}
+
+init();
+</script>
+</body>
+</html>
