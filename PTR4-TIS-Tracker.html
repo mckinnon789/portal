@@ -286,24 +286,111 @@ input[type="checkbox"]{accent-color:var(--aqua)}
 @media (max-width:1100px){
   .top,.kpis,.cols,.controls,.filters,.utility-grid,.coaching-grid{grid-template-columns:1fr}
 }
+:focus-visible{outline:3px solid rgba(46,215,222,.82);outline-offset:3px}
+body{
+  background:
+    radial-gradient(circle at top left, rgba(110,56,213,.17), transparent 23%),
+    radial-gradient(circle at 92% 8%, rgba(46,215,222,.08), transparent 19%),
+    linear-gradient(180deg,#080b12 0%,#0c111c 58%,#090d16 100%);
+}
+body:before{opacity:.12}
+.product-nav{
+  position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:14px;
+  padding:11px 18px;background:rgba(8,11,18,.92);border-bottom:1px solid rgba(255,255,255,.09);backdrop-filter:blur(16px)
+}
+.product-brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:-.02em}
+.brand-dot{width:10px;height:10px;border-radius:999px;background:var(--aqua);box-shadow:0 0 0 5px rgba(46,215,222,.12)}
+.product-links{display:flex;gap:8px;flex-wrap:wrap}
+.product-links a{color:#fff;text-decoration:none;padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--line);font-size:11px;font-weight:800}
+.product-links a[aria-current="page"]{background:rgba(110,56,213,.24);border-color:rgba(110,56,213,.5)}
+.wrap{max-width:1500px}
+.top{align-items:start}
+.card{background:linear-gradient(180deg,rgba(23,28,44,.96),rgba(15,20,32,.96));border-radius:20px}
+.card:before{opacity:.4}
+.card:after{height:4px}
+h1{font-size:29px;text-transform:none}
+.sub{color:#c8d3e9;font-size:14px}
+input[type=file],input[type=text],select{background:#0c111c;border-color:rgba(255,255,255,.11)}
+button{background:linear-gradient(135deg,var(--aqua),var(--blurple));text-transform:none;letter-spacing:0}
+button.secondary{background:rgba(255,255,255,.055)}
+.kpi{background:linear-gradient(180deg,rgba(22,28,44,.96),rgba(14,19,31,.96));min-height:94px}
+.kpi .l{color:#b8c6df}
+.workflow-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.workflow-step{display:flex;align-items:center;gap:10px;padding:12px 13px;border-radius:16px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);color:#aebbd3}
+.workflow-step strong{display:block;color:#eaf1ff;font-size:12px}
+.workflow-step span{display:block;margin-top:2px;font-size:11px}
+.step-number{display:grid!important;place-items:center;flex:0 0 30px;width:30px;height:30px;border-radius:999px;background:rgba(255,255,255,.07);font-weight:900!important;color:#dbe7ff!important}
+.workflow-step.active{border-color:rgba(46,215,222,.45);background:rgba(46,215,222,.09)}
+.workflow-step.active .step-number,.workflow-step.complete .step-number{background:var(--aqua);color:#041018!important}
+.workflow-step.complete{border-color:rgba(32,201,151,.28)}
+.operator-details>summary{display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;list-style:none;font-weight:900}
+.operator-details>summary::-webkit-details-marker{display:none}
+.operator-details>summary:after{content:"+";color:var(--aqua);font-size:20px}
+.operator-details[open]>summary:after{content:"–"}
+.operator-body{margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.tablewrap{background:#0c111c}
+th{background:linear-gradient(180deg,#241145,#1a0e32)}
+.message-box{min-height:220px;background:#0c111c}
+.inline-error{color:#ffc4cc}
+@media (max-width:700px){
+  .product-nav{align-items:flex-start;padding:10px 12px}
+  .product-brand{padding-top:7px}
+  .product-links{justify-content:flex-end}
+  .product-links a{font-size:10px;padding:7px 9px}
+  .wrap{padding:12px}
+  .workflow-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .workflow-step{padding:10px}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .tablewrap{max-height:none;overflow:visible;background:transparent;border:0}
+  table,tbody,tr,td{display:block;width:100%}
+  thead{display:none}
+  tbody{display:grid;gap:12px}
+  tbody tr{padding:12px;border:1px solid var(--line);border-radius:16px;background:#0c111c}
+  tbody td{display:grid;grid-template-columns:112px minmax(0,1fr);gap:10px;padding:8px 3px;border:0;border-bottom:1px solid rgba(255,255,255,.06)}
+  tbody td:last-child{border-bottom:0}
+  tbody td:before{content:attr(data-label);color:#91a3c3;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+  tbody td[colspan]{display:block}
+  tbody td[colspan]:before{display:none}
+  .coach-item{display:grid}
+}
 </style>
-</head><body><div class="wrap grid">
+</head><body>
+<header class="product-nav">
+  <div class="product-brand"><span class="brand-dot"></span>PTR4 Performance</div>
+  <nav class="product-links" aria-label="Portal navigation">
+    <a href="index.html">Command Center</a>
+    <a href="PTR4-EFT-Tracker.html">EFT</a>
+    <a href="PTR4-TIS-Tracker.html" aria-current="page">TIS</a>
+  </nav>
+</header>
+<div class="wrap grid">
+<div class="workflow-steps" aria-label="Report workflow">
+  <div class="workflow-step active" id="workflow1"><span class="step-number">1</span><div><strong>Upload</strong><span>Select report files</span></div></div>
+  <div class="workflow-step" id="workflow2"><span class="step-number">2</span><div><strong>Process</strong><span>Validate and match</span></div></div>
+  <div class="workflow-step" id="workflow3"><span class="step-number">3</span><div><strong>Review</strong><span>Scan performance</span></div></div>
+  <div class="workflow-step" id="workflow4"><span class="step-number">4</span><div><strong>Coach</strong><span>Copy or export</span></div></div>
+</div>
 <div class="grid top">
   <div class="card">
     <h1>PTR4 Time in Session Tracker</h1>
-    <div class="small" style="margin-bottom:8px;text-transform:uppercase;letter-spacing:.1em;font-weight:900;color:#2ED7DE">PTR4 bundled build • area map included</div>
-    <div class="sub">1 master time-detail report + multiple club commission reports. TIS = commissionable events ÷ <b>net working hours</b>. Green 80%+, Yellow 70–79.9%, Red under 70%.</div>
+    <div class="small" style="margin-bottom:8px;text-transform:uppercase;letter-spacing:.1em;font-weight:900;color:#2ED7DE">Report matching and coaching workflow</div>
+    <div class="sub">Upload one time-detail report and the related commission reports. TIS equals commissionable events divided by <b>net working hours</b>. Green is 80%+, yellow is 70–79.9%, and red is below 70%.</div>
     <div class="controls" style="margin-top:14px">
-      <div><label>Time Detail Report (.xls or .xlsx)</label><input id="timeFile" type="file" accept=".xls,.xlsx" /></div>
-      <div><label>Commission Reports (.xls or .xlsx, multiple)</label><input id="commFiles" type="file" accept=".xls,.xlsx" multiple /></div>
-      <div class="row"><button id="processBtn" disabled>Process Reports</button><button id="exportBtn" class="secondary">Export CSV</button></div>
+      <div><label for="timeFile">Time Detail Report (.xls or .xlsx)</label><input id="timeFile" type="file" accept=".xls,.xlsx" /></div>
+      <div><label for="commFiles">Commission Reports (.xls or .xlsx, multiple)</label><input id="commFiles" type="file" accept=".xls,.xlsx" multiple /></div>
+      <div class="row"><button id="processBtn" disabled>Process Reports</button><button id="exportBtn" class="secondary" disabled>Export CSV</button></div>
     </div>
-    <div class="row" style="margin-top:12px"><span id="loaderPill" class="pill loading">Initializing…</span><span id="fileState" class="small">No files loaded yet.</span></div>
+    <div class="row" style="margin-top:12px"><span id="loaderPill" class="pill loading">Initializing…</span><span id="fileState" class="small" aria-live="polite">No files loaded yet.</span></div>
   </div>
   <div class="card">
-    <div class="row" style="justify-content:space-between"><b>Operator controls</b><label class="row"><input id="hidePTMs" type="checkbox" checked /> <span class="small">Hide PTMs</span></label></div>
-    <div class="row" style="margin-top:10px"><button id="resetRosterBtn" class="secondary">Reset Excluded</button><button id="preloadAliasesBtn" class="secondary">Preload Florida Aliases</button></div>
-    <div style="margin-top:12px"><label>Add manual alias</label><div class="row"><input id="aliasSource" type="text" placeholder="Commission file name"/><input id="aliasTarget" type="text" placeholder="Active trainer name"/><button id="addAliasBtn" class="secondary">Save Alias</button></div></div>
+    <details class="operator-details">
+      <summary>Operator and alias settings</summary>
+      <div class="operator-body">
+        <div class="row" style="justify-content:space-between"><b>Display controls</b><label class="row" for="hidePTMs"><input id="hidePTMs" type="checkbox" checked /> <span class="small">Hide PTMs</span></label></div>
+        <div class="row" style="margin-top:10px"><button id="resetRosterBtn" class="secondary">Reset Excluded</button><button id="preloadAliasesBtn" class="secondary">Preload Florida Aliases</button></div>
+        <div style="margin-top:12px"><label for="aliasSource">Add manual alias</label><div class="row"><input id="aliasSource" type="text" aria-label="Commission report name" placeholder="Commission file name"/><input id="aliasTarget" type="text" aria-label="Active trainer name" placeholder="Active trainer name"/><button id="addAliasBtn" class="secondary">Save Alias</button></div></div>
+      </div>
+    </details>
   </div>
 </div>
 <div class="grid kpis">
@@ -323,10 +410,10 @@ input[type="checkbox"]{accent-color:var(--aqua)}
    <div class="small" style="max-width:360px;text-align:right">Clean operator view up front. Match and alias utilities moved into a lower-priority utility drawer.</div>
  </div>
  <div class="filters">
-  <div><label>Search</label><input id="searchInput" type="text" placeholder="Trainer or club" /></div>
-  <div><label>Status</label><select id="statusFilter"><option value="all">All</option><option value="green">Green</option><option value="yellow">Yellow</option><option value="red">Red</option></select></div>
-  <div><label>Role</label><select id="roleFilter"><option value="all">All</option><option value="trainer">Trainer only</option><option value="ptm">PTM only</option></select></div>
-  <div><label>Match</label><select id="matchFilter"><option value="all">All</option><option>Exact</option><option>Alias</option><option>Strong</option><option>Fuzzy</option><option>Ambiguous</option><option>Unmatched</option></select></div>
+  <div><label for="searchInput">Search</label><input id="searchInput" type="text" placeholder="Trainer or club" /></div>
+  <div><label for="statusFilter">Status</label><select id="statusFilter"><option value="all">All</option><option value="green">Green</option><option value="yellow">Yellow</option><option value="red">Red</option></select></div>
+  <div><label for="roleFilter">Role</label><select id="roleFilter"><option value="all">All</option><option value="trainer">Trainer only</option><option value="ptm">PTM only</option></select></div>
+  <div><label for="matchFilter">Match</label><select id="matchFilter"><option value="all">All</option><option>Exact</option><option>Alias</option><option>Strong</option><option>Fuzzy</option><option>Ambiguous</option><option>Unmatched</option></select></div>
   <div class="row"><button id="refreshBtn" class="secondary">Refresh View</button></div>
   <div class="small" id="tableCount">0 rows</div>
  </div>
@@ -431,6 +518,13 @@ document.getElementById('hidePTMs').checked = JSON.parse(localStorage.getItem(ST
 function log(msg){ const p=document.getElementById('log'); p.textContent += `[${new Date().toLocaleTimeString()}] ${msg}
 `; p.scrollTop=p.scrollHeight; console.log(msg); }
 function setPill(state,text){ const el=document.getElementById('loaderPill'); el.className='pill '+state; el.textContent=text; }
+function setWorkflowStep(phase){
+  const steps=[1,2,3,4].map(n=>document.getElementById('workflow'+n));
+  steps.forEach((step,index)=>{
+    step.classList.toggle('complete',index+1<phase);
+    step.classList.toggle('active',index+1===phase);
+  });
+}
 window.onerror=(m,s,l,c,e)=>{ setPill('error','JS error'); log('JS error: '+m); };
 window.onunhandledrejection=(e)=>{ setPill('error','Unhandled error'); log('Promise error: '+(e.reason?.message||e.reason||e)); };
 function saveState(){ localStorage.setItem(STORAGE_EXCLUDED, JSON.stringify([...excluded])); localStorage.setItem(STORAGE_HIDE_PTMS, JSON.stringify(document.getElementById('hidePTMs').checked)); localStorage.setItem(STORAGE_ALIASES, JSON.stringify(aliasMap)); }
@@ -445,7 +539,7 @@ function statusOf(tis){ return tis>=80?'green':tis>=70?'yellow':'red'; }
 function actionOf(tis){ return tis<70?'Immediate schedule rebuild + floor-pull support':tis<80?'Add sessions and tighten utilization':'Maintain standard'; }
 function fmtPct(v){ return (Number(v)||0).toFixed(1)+'%'; }
 function fmtH(v){ return (Number(v)||0).toFixed(2); }
-function updateFileState(){ const tf=document.getElementById('timeFile').files[0]; const cf=[...document.getElementById('commFiles').files]; document.getElementById('fileState').textContent = `${tf?tf.name:'No time file'} | ${cf.length} commission file(s)`; document.getElementById('processBtn').disabled = !(tf && cf.length); }
+function updateFileState(){ const tf=document.getElementById('timeFile').files[0]; const cf=[...document.getElementById('commFiles').files]; const ready=!!(tf&&cf.length); const stateEl=document.getElementById('fileState'); stateEl.textContent = `${tf?tf.name:'No time file'} | ${cf.length} commission file(s)`; stateEl.classList.remove('inline-error'); document.getElementById('processBtn').disabled = !ready; document.getElementById('exportBtn').disabled = true; setWorkflowStep(ready?2:1); }
 function colToIndex(ref){ const letters=String(ref||'').replace(/\d+/g,''); let n=0; for(let i=0;i<letters.length;i++) n=n*26 + (letters.charCodeAt(i)-64); return n; }
 function excelSerialToDate(serial){ const value=Number(serial); if(!isFinite(value)) return null; const utcDays=Math.floor(value - 25569); const utcValue=utcDays*86400; const dateInfo = new Date(utcValue*1000); const fractionalDay=value - Math.floor(value) + 1e-10; let totalSeconds=Math.floor(86400*fractionalDay); const seconds=totalSeconds%60; totalSeconds=Math.floor(totalSeconds/60); const minutes=totalSeconds%60; const hours=Math.floor(totalSeconds/60)%24; return new Date(dateInfo.getUTCFullYear(), dateInfo.getUTCMonth(), dateInfo.getUTCDate(), hours, minutes, seconds); }
 function parseExcelDate(v){ if(v instanceof Date) return v; if(typeof v==='number') return excelSerialToDate(v); const d=new Date(v); return isNaN(d)?null:d; }
@@ -464,7 +558,7 @@ function findBestMatch(comm, timeRows){ const aliased=applyAlias(comm.trainer); 
 function mergeData(timeRows, commRows){ const agg={}; const review=[]; for(const c of commRows){ const m=findBestMatch(c,timeRows); review.push({source:c.trainer, club:c.club, target:m.target?.trainer||'', quality:m.quality, score:m.score, alt:m.alt||'', normSource:norm(c.trainer)}); if(!m.target) continue; const k=m.target.norm; if(!agg[k]) agg[k]={events:0, clubs:new Set(), quality:m.quality, score:m.score}; agg[k].events += c.events; agg[k].clubs.add(c.club); const rank={Exact:5,Alias:4,Strong:3,Fuzzy:2,Ambiguous:1,Unmatched:0}; if(rank[m.quality] < rank[agg[k].quality]){ agg[k].quality = m.quality; agg[k].score = m.score; } }
  const rows=timeRows.map(t=>{ const a=agg[t.norm]||{events:0,clubs:new Set(),quality:'Unmatched',score:0}; const tis=t.hoursWorked>0 ? (a.events/t.hoursWorked)*100 : 0; const gapPct=Math.max(0,80-tis); const sessionsGap=Math.max(0, Math.ceil((0.8*t.hoursWorked)-a.events)); return {...t, events:a.events||0, sourceClubList:[...a.clubs].join(', '), tis, gapPct, sessionsGap, status:statusOf(tis), action:actionOf(tis), matchQuality:a.quality, matchScore:a.score}; }); return {rows, review}; }
 function visibleRows(){ const q=norm(document.getElementById('searchInput').value); const sf=document.getElementById('statusFilter').value; const rf=document.getElementById('roleFilter').value; const mf=document.getElementById('matchFilter').value; const hidePTMs=document.getElementById('hidePTMs').checked; return appRows.filter(r=>{ if(excluded.has(r.norm)) return false; if(hidePTMs && r.isPTM) return false; if(rf==='trainer' && r.isPTM) return false; if(rf==='ptm' && !r.isPTM) return false; if(sf!=='all' && r.status!==sf) return false; if(mf!=='all' && r.matchQuality!==mf) return false; const hay=norm(r.trainer+' '+r.club+' '+r.sourceClubList); if(q && !hay.includes(q)) return false; return true; }); }
-function render(){ const rows=visibleRows(); document.getElementById('tableCount').textContent=rows.length+' rows'; const tb=document.getElementById('tbody'); tb.innerHTML = rows.map(r=>`<tr><td><b>${r.trainer}</b><div class="small">${r.sourceClubList||'No commission rows matched'}</div><button class="secondary" style="margin-top:6px;padding:6px 10px" onclick="toggleExclude('${r.norm}')">Exclude</button></td><td>${r.club||'—'}</td><td>${r.role}</td><td>${fmtH(r.hoursWorked)}</td><td>${r.events}</td><td><b>${fmtPct(r.tis)}</b></td><td><span class="badge ${r.status==='green'?'g':r.status==='yellow'?'y':'r'}">${r.status.toUpperCase()}</span></td><td>${fmtPct(r.gapPct)}</td><td>${r.sessionsGap}</td><td><span class="badge ${r.matchQuality==='Exact'||r.matchQuality==='Alias'||r.matchQuality==='Strong'?'g':r.matchQuality==='Fuzzy'?'y':'r'}">${r.matchQuality}</span><div class="small">${r.matchScore||''}</div></td><td>${r.action}</td></tr>`).join('') || '<tr><td colspan="11">No rows match the current filters.</td></tr>';
+function render(){ const rows=visibleRows(); document.getElementById('tableCount').textContent=rows.length+' rows'; const tb=document.getElementById('tbody'); tb.innerHTML = rows.map(r=>`<tr><td data-label="Trainer"><b>${r.trainer}</b><div class="small">${r.sourceClubList||'No commission rows matched'}</div><button class="secondary" style="margin-top:6px;padding:6px 10px" onclick="toggleExclude('${r.norm}')">Exclude</button></td><td data-label="Club">${r.club||'—'}</td><td data-label="Role">${r.role}</td><td data-label="Hours">${fmtH(r.hoursWorked)}</td><td data-label="Events">${r.events}</td><td data-label="TIS"><b>${fmtPct(r.tis)}</b></td><td data-label="Status"><span class="badge ${r.status==='green'?'g':r.status==='yellow'?'y':'r'}">${r.status.toUpperCase()}</span></td><td data-label="Gap to 80%">${fmtPct(r.gapPct)}</td><td data-label="Sessions to green">${r.sessionsGap}</td><td data-label="Match"><span class="badge ${r.matchQuality==='Exact'||r.matchQuality==='Alias'||r.matchQuality==='Strong'?'g':r.matchQuality==='Fuzzy'?'y':'r'}">${r.matchQuality}</span><div class="small">${r.matchScore||''}</div></td><td data-label="Action">${r.action}</td></tr>`).join('') || '<tr><td colspan="11">No rows match the current filters.</td></tr>';
  const active=rows.length, totalHours=rows.reduce((a,b)=>a+b.hoursWorked,0), totalEvents=rows.reduce((a,b)=>a+b.events,0); document.getElementById('kActive').textContent=active; document.getElementById('kTis').textContent=fmtPct(totalHours? (totalEvents/totalHours)*100:0); document.getElementById('kGreen').textContent=rows.filter(r=>r.status==='green').length; document.getElementById('kYellow').textContent=rows.filter(r=>r.status==='yellow').length; document.getElementById('kRed').textContent=rows.filter(r=>r.status==='red').length; document.getElementById('kGap').textContent=rows.reduce((a,b)=>a+b.sessionsGap,0);
  document.getElementById('matchReview').innerHTML = matchReview.filter(m=>m.quality!=='Exact'&&m.quality!=='Alias').map(m=>{ const btn = m.target ? '<button class="secondary approveBtn" data-source="'+encodeURIComponent(m.source)+'" data-target="'+encodeURIComponent(m.target)+'" style="margin-top:8px">Approve Alias</button>' : ''; const alt = m.alt ? ' | alt '+m.alt : ''; return '<div class="match-item"><div><b>'+m.source+'</b> → '+(m.target||'No match')+'</div><div class="small">'+m.club+' | '+m.quality+' | score '+m.score+alt+'</div>'+btn+'</div>'; }).join('') || '<div class="small">No fuzzy or unmatched names.</div>';
  document.getElementById('aliasList').innerHTML = Object.entries(aliasMap).sort().map(([k,v])=>`<div class="alias-item"><b>${k}</b> → ${v} <button class="secondary" style="float:right;padding:4px 8px" onclick="removeAlias('${k.replace(/'/g,"\'")}')">Remove</button></div>`).join('') || '<div class="small">No saved aliases.</div>';
@@ -473,8 +567,8 @@ function render(){ const rows=visibleRows(); document.getElementById('tableCount
 function toggleExclude(k){ excluded.add(k); render(); } function unexclude(k){ excluded.delete(k); render(); } function resetExcluded(){ excluded.clear(); render(); } function removeAlias(k){ delete aliasMap[k]; render(); }
 function preloadAliases(){ let added=0; for(const [k,v] of Object.entries(DEFAULT_ALIASES)){ if(!aliasMap[k]){ aliasMap[k]=v; added++; } } log('Preloaded aliases: '+added); render(); }
 function addAlias(){ const s=norm(document.getElementById('aliasSource').value), t=norm(document.getElementById('aliasTarget').value); if(!s||!t) return; aliasMap[s]=t; document.getElementById('aliasSource').value=''; document.getElementById('aliasTarget').value=''; log(`Saved alias ${s} -> ${t}`); render(); }
-function exportCsv(){ const rows=visibleRows(); const lines=[['Trainer','Club','Role','Hours Worked','Events','TIS','Status','Gap to 80%','Sessions to Green','Match Quality','Match Score'], ...rows.map(r=>[r.trainer,r.club,r.role,r.hoursWorked,r.events,r.tis.toFixed(1),r.status,r.gapPct.toFixed(1),r.sessionsGap,r.matchQuality,r.matchScore])]; const csv=lines.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n'); const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='trainer_tis_active.csv'; a.click(); URL.revokeObjectURL(a.href); }
-async function processReports(){ try{ setPill('loading','Processing…'); log('---'); const tf=document.getElementById('timeFile').files[0]; const cfs=[...document.getElementById('commFiles').files]; if(!tf) throw new Error('Upload a time report.'); if(!cfs.length) throw new Error('Upload at least one commission report.'); const timeWb=await readWorkbook(tf); const timeRows=parseTimeWorkbook(timeWb); let commRows=[]; for(const f of cfs){ const wb=await readWorkbook(f); commRows = commRows.concat(parseCommissionWorkbook(wb,f.name)); } const merged=mergeData(timeRows,commRows); appRows=merged.rows; matchReview=merged.review; render(); setPill('ready','Processed'); log(`Done. Trainers: ${timeRows.length} | Commission rows: ${commRows.length} | Visible rows: ${visibleRows().length}`); }catch(err){ setPill('error','Failed'); log('ERROR: '+(err.message||err)); alert(err.message||String(err)); } }
+function exportCsv(){ const rows=visibleRows(); const lines=[['Trainer','Club','Role','Hours Worked','Events','TIS','Status','Gap to 80%','Sessions to Green','Match Quality','Match Score'], ...rows.map(r=>[r.trainer,r.club,r.role,r.hoursWorked,r.events,r.tis.toFixed(1),r.status,r.gapPct.toFixed(1),r.sessionsGap,r.matchQuality,r.matchScore])]; const csv=lines.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n'); const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='trainer_tis_active.csv'; a.click(); URL.revokeObjectURL(a.href); setWorkflowStep(4); }
+async function processReports(){ try{ setPill('loading','Processing…'); setWorkflowStep(2); log('---'); const tf=document.getElementById('timeFile').files[0]; const cfs=[...document.getElementById('commFiles').files]; if(!tf) throw new Error('Upload a time report.'); if(!cfs.length) throw new Error('Upload at least one commission report.'); const timeWb=await readWorkbook(tf); const timeRows=parseTimeWorkbook(timeWb); let commRows=[]; for(const f of cfs){ const wb=await readWorkbook(f); commRows = commRows.concat(parseCommissionWorkbook(wb,f.name)); } const merged=mergeData(timeRows,commRows); appRows=merged.rows; matchReview=merged.review; render(); setPill('ready','Processed'); setWorkflowStep(3); document.getElementById('exportBtn').disabled = !appRows.length; document.getElementById('fileState').textContent=`Processed ${timeRows.length} trainers and ${commRows.length} commission rows.`; log(`Done. Trainers: ${timeRows.length} | Commission rows: ${commRows.length} | Visible rows: ${visibleRows().length}`); }catch(err){ setPill('error','Failed'); setWorkflowStep(2); document.getElementById('exportBtn').disabled = true; const stateEl=document.getElementById('fileState'); stateEl.textContent=err.message||String(err); stateEl.classList.add('inline-error'); log('ERROR: '+(err.message||err)); } }
 document.getElementById('timeFile').addEventListener('change', updateFileState); document.getElementById('commFiles').addEventListener('change', updateFileState); document.getElementById('processBtn').addEventListener('click', processReports); document.getElementById('exportBtn').addEventListener('click', exportCsv); document.getElementById('searchInput').addEventListener('input', render); document.getElementById('statusFilter').addEventListener('change', render); document.getElementById('roleFilter').addEventListener('change', render); document.getElementById('matchFilter').addEventListener('change', render); document.getElementById('hidePTMs').addEventListener('change', render); document.getElementById('resetRosterBtn').addEventListener('click', resetExcluded); document.getElementById('preloadAliasesBtn').addEventListener('click', preloadAliases); document.getElementById('addAliasBtn').addEventListener('click', addAlias); document.getElementById('refreshBtn').addEventListener('click', render); document.addEventListener('click', (e)=>{ const b=e.target.closest('.approveBtn'); if(!b) return; const s=decodeURIComponent(b.dataset.source||''); const t=decodeURIComponent(b.dataset.target||''); aliasMap[norm(s)] = norm(t); log(`Approved alias ${s} -> ${t}`); render(); });
 updateFileState(); preloadAliases(); setPill('ready','Ready'); log('Ready. Offline .xlsx supported. .xls supported when the full workbook library can load online.');
 
@@ -582,6 +676,7 @@ updateFileState(); preloadAliases(); setPill('ready','Ready'); log('Ready. Offli
         try{
           await navigator.clipboard.writeText(text);
           copyBtn.textContent = 'Copied';
+          setWorkflowStep(4);
           setTimeout(() => copyBtn.textContent = 'Copy Message', 1200);
         }catch(e){
           copyBtn.textContent = 'Copy Failed';

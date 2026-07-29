@@ -125,6 +125,7 @@ box-shadow:0 24px 70px rgba(0,0,0,.42);padding:24px}
 .btn{border:none;border-radius:16px;padding:12px 14px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;font-size:11px}
 .btn.primary{background:linear-gradient(135deg,var(--aqua),#8df5ff);color:#04111a}
 .btn.dark{background:rgba(255,255,255,.08);color:var(--text);border:1px solid rgba(255,255,255,.12)}
+.btn.disabled{opacity:.48;cursor:not-allowed;pointer-events:none}
 .btn.warn{background:linear-gradient(135deg,var(--orange),#ffb36a);color:#230b00}
 .command-boxes{display:grid;gap:14px}
 .callout{padding:18px;border-radius:22px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1)}
@@ -521,6 +522,84 @@ input,select,textarea,button{min-width:0}
   .quick-action-row,.area-footer-grid{grid-template-columns:1fr}
 }
 
+/* 2026 command-center simplification */
+:focus-visible{outline:3px solid rgba(46,215,222,.8);outline-offset:3px}
+.utility-bar{padding:8px 12px;margin-bottom:8px;border-radius:14px;min-height:0}
+.utility-left .utility-chip:nth-child(2),
+.utility-left .utility-chip:nth-child(3){display:none}
+.utility-chip{padding:7px 10px;font-size:9px}
+.site-nav{position:sticky;top:0;padding:12px 16px;margin-bottom:10px;border-radius:18px}
+.site-title{font-size:22px}
+.site-subtitle{font-size:12px;max-width:640px}
+.site-menu{gap:7px}
+.site-link{padding:10px 12px}
+.data-settings{margin:0 0 12px;border:1px solid rgba(255,255,255,.08);border-radius:16px;background:rgba(9,13,23,.76);overflow:hidden}
+.data-settings>summary{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:11px 14px;cursor:pointer;list-style:none;color:#dce8ff;font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+.data-settings>summary::-webkit-details-marker{display:none}
+.data-settings>summary::after{content:"+";color:var(--aqua);font-size:18px}
+.data-settings[open]>summary::after{content:"–"}
+.data-settings .data-bar{position:static;margin:0;border:0;border-top:1px solid rgba(255,255,255,.08);border-radius:0;box-shadow:none;background:rgba(255,255,255,.025)}
+.data-connection-state{margin-left:auto;color:var(--muted);font-size:10px;letter-spacing:.04em;text-transform:none}
+.hero{min-height:0;padding:24px;border-radius:28px}
+.hero-grid{grid-template-columns:minmax(0,1.05fr) minmax(420px,.95fr)!important;gap:22px;align-items:end}
+.hero-copy h1{font-size:clamp(42px,4.8vw,70px);margin:12px 0 10px;max-width:12ch}
+.hero-copy p{font-size:16px;line-height:1.5}
+.hero-actions{margin-top:16px}
+.command-boxes{gap:12px}
+.focus-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.focus-kpi{padding:14px;border-radius:17px;background:rgba(7,11,20,.44);border:1px solid rgba(255,255,255,.1)}
+.focus-kpi span{display:block;color:#b8c8e7;font-size:9px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+.focus-kpi strong{display:block;font-size:23px;line-height:1;letter-spacing:-.04em}
+.focus-kpi small{display:block;margin-top:6px;color:#d8e4fb;font-size:11px}
+.compact-controls{padding:12px;border-radius:17px;background:rgba(7,11,20,.34);border:1px solid rgba(255,255,255,.08)}
+.section-banner{display:none}
+.section{margin-top:16px;border-radius:24px}
+.section-head{padding:20px 22px 8px;margin-bottom:4px}
+.section-head h2{font-size:27px}
+.section-body{padding:0 22px 22px}
+.area-grid{gap:14px}
+.area-card{padding:17px;border-radius:22px}
+.area-card h3{font-size:22px!important}
+.area-metrics{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.area-footer-band{margin-top:10px;padding:11px}
+.club-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.club-card{padding:16px;border-radius:21px;min-height:0}
+.club-card h4{font-size:17px;min-height:0}
+.club-metrics{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.club-footer-band{margin-top:10px;padding:11px}
+.club-wall-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;padding:12px 14px;border-radius:16px;background:rgba(46,215,222,.07);border:1px solid rgba(46,215,222,.14)}
+.club-wall-toolbar strong{font-size:13px}
+.club-wall-toolbar .small{margin-top:3px}
+.club-details .club-detail-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+.rule-note{display:none!important}
+.two-col{gap:16px}
+.calendar-grid{gap:5px}
+.day{min-height:104px;padding:9px;border-radius:13px}
+
+@media (max-width:1100px){
+  .hero-grid{grid-template-columns:1fr!important}
+  .area-grid,.club-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media (max-width:700px){
+  .utility-bar{display:none}
+  .site-nav{padding:12px;position:sticky}
+  .site-brand{align-items:flex-start}
+  .site-menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}
+  .site-link{text-align:center;font-size:9px}
+  .site-subtitle{display:none}
+  .hero{padding:17px}
+  .hero-grid{gap:16px}
+  .hero-copy h1{font-size:40px}
+  .hero-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero-actions .btn{text-align:center}
+  .focus-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .focus-kpi strong{font-size:19px}
+  .section-head,.section-body{padding-left:15px;padding-right:15px}
+  .area-grid,.club-grid{grid-template-columns:1fr!important}
+  .area-metrics,.club-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .two-col{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
@@ -550,14 +629,18 @@ input,select,textarea,button{min-width:0}
     <div class="site-menu">
       <a class="site-link" href="#area-command">Area Command</a>
       <a class="site-link" href="#operations-wall">Operations Hub</a>
-      <a class="site-link" href="#admin-panel">Admin & Links</a>
+      <a class="site-link" href="PTR4-EFT-Tracker.html">EFT Tracker</a>
+      <a class="site-link" href="PTR4-TIS-Tracker.html">TIS Tracker</a>
+      <a class="site-link" id="adminNavLink" href="#adminSection">Admin</a>
     </div>
   </nav>
 
+  <details class="data-settings">
+    <summary><span>Data connection</span><span class="data-connection-state" id="dataConnectionSummary">Snapshot ready · open to manage source</span></summary>
   <div class="data-bar">
     <div class="data-left">
       <span class="data-label">Live Data Source</span>
-      <input class="input" id="csvUrlInput" type="text" placeholder="Paste Google Sheets CSV URL">
+      <input class="input" id="csvUrlInput" type="text" aria-label="Google Sheets CSV feed URL" placeholder="Paste Google Sheets CSV URL">
     </div>
     <div class="data-actions">
       <button class="btn primary" id="saveCsvBtn">Save Feed</button>
@@ -566,6 +649,7 @@ input,select,textarea,button{min-width:0}
       <input type="file" id="csvFileInput" accept=".csv,text/csv" class="hidden">
     </div>
   </div>
+  </details>
 
 
 
@@ -583,13 +667,13 @@ input,select,textarea,button{min-width:0}
     </div>
     <div class="hero-grid">
       <div class="hero-copy">
-        <div class="pill">PT Command Center OS</div>
-        <h1>Run the region.<br>Force clarity.</h1>
-        <p>Daily operating hub, sales command center, club visit planner, editable leadership calendar, and live KPI stack for Stephon, Domenick, Nathan, NOLA, Ozarks, Central Louisiana, and Jeremy.</p>
+        <div class="pill">Today’s regional command</div>
+        <h1>See the gap.<br>Take action.</h1>
+        <p>Start with the regional pace, move directly to the clubs that need attention, and leave every visit with a clear owner and next action.</p>
         <div class="hero-actions">
           <button class="btn primary" id="refreshBtn">Refresh KPIs</button>
-          <a class="btn dark" id="eftLink" href="https://mckinnon789.github.io/portal/PTR4-EFT-Tracker.html" target="_blank" rel="noopener">Open EFT Tracker</a>
-          <a class="btn dark" id="tisLink" href="https://mckinnon789.github.io/portal/PTR4-TIS-Tracker.html" target="_blank" rel="noopener">Open TIS Tracker</a>
+          <a class="btn dark" id="eftLink" href="PTR4-EFT-Tracker.html">Open EFT Tracker</a>
+          <a class="btn dark" id="tisLink" href="PTR4-TIS-Tracker.html">Open TIS Tracker</a>
           <a class="btn dark" id="statLink" href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTMx3d6l9CTxn-rd1Kt7lvp-Oa4NyQNf-YWaN8V_NEdKGFLxdMHvegG-uiFNMMTbQ/pubhtml" target="_blank" rel="noopener">Open PTR4 Stat Tracker</a>
           <button class="btn warn" id="adminToggle">Admin & Links</button>
         </div>
@@ -597,9 +681,15 @@ input,select,textarea,button{min-width:0}
       <div class="hero-right">
         
         <div class="command-boxes">
+          <div class="focus-kpis" aria-label="Regional snapshot">
+            <div class="focus-kpi"><span>Projected EFT</span><strong id="focusEft">—</strong><small id="focusEftGap">Loading regional pace</small></div>
+            <div class="focus-kpi"><span>Projected Revenue</span><strong id="focusRevenue">—</strong><small id="focusRevenueGap">Loading revenue pace</small></div>
+            <div class="focus-kpi"><span>Show Rate</span><strong id="focusShow">—</strong><small>Target 60%+</small></div>
+            <div class="focus-kpi"><span>Close Rate</span><strong id="focusClose">—</strong><small>Target 30%+</small></div>
+          </div>
           <div class="controls compact-controls">
-            <select class="select" id="areaFilter"></select>
-            <input class="input" id="clubSearch" placeholder="Search club">
+            <select class="select" id="areaFilter" aria-label="Filter by area"></select>
+            <input class="input" id="clubSearch" aria-label="Search clubs" placeholder="Search club">
           </div>
         </div>
       </div>
@@ -610,22 +700,26 @@ input,select,textarea,button{min-width:0}
 
 
 
-  <section class="section">
+  <section class="section" id="area-command">
     <div class="section-banner"><div class="banner-copy"><span class="eyebrow">Area ownership</span><h2>Area Command</h2><p>Leader-by-leader performance wall with clean KPI language, goal pressure, and accountability.</p></div><div class="banner-photo"><img alt="Area Command" src="https://cdn.prod.website-files.com/66aa8fe9dc4db68f448a978f/69e8bb746959557d3fdbafc5_RT_240717_ANYTIME_FITNESS_0073-BATCH%20(1).avif"></div></div><div class="section-head compact"><h2>Area Command</h2><p>One owner card per area. Tap a card to isolate that area’s clubs.</p></div>
     <div class="section-body">
       <div class="area-grid" id="areaCards"></div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="club-wall">
     <div class="section-banner"><div class="banner-copy"><span class="eyebrow">Club wall</span><h2>Region → Area → Club Breakdown</h2><p>Club-by-club execution board for scanning performance, issues, and next actions fast.</p></div><div class="banner-photo"><img alt="Region → Area → Club Breakdown" src="https://cdn.prod.website-files.com/66aa8fe9dc4db68f448a978f/685c14adcd785f1045be0bc1_training-hero-bg.webp"></div></div><div class="section-head compact"><h2>Region → Area → Club Breakdown</h2><p>Unified KPI language on every card.</p></div>
     <div class="section-body">
       <div class="filter-banner" id="filterBanner"><strong id="filterText"></strong><button class="btn dark" id="clearFilterBtn">Show All Areas</button></div>
+      <div class="club-wall-toolbar">
+        <div><strong>Exception-first club view</strong><div class="small" id="clubViewSummary">Showing the highest-priority clubs across the region.</div></div>
+        <button class="btn dark" id="showAllClubsBtn" type="button">Show Every Club</button>
+      </div>
       <div id="clubSections"></div>
     </div>
   </section>
 
-  <div class="two-col">
+  <div class="two-col" id="operations-wall">
     <section class="section">
       <div class="section-banner"><div class="banner-copy"><span class="eyebrow">Leadership rhythm</span><h2>Leadership Calendar</h2><p>Command calendar for club visits, calls, and operating cadence across the region.</p></div><div class="banner-photo"><img alt="Leadership Calendar" src="https://cdn.prod.website-files.com/66aa8fe9dc4db68f448a978f/67d0ecd3feb88df1f5ecbac3_personal-training-contract.webp"></div></div><div class="section-head compact"><h2>Leadership Calendar</h2><p>Editable team calendar with month view, today list, and agenda.</p></div>
       <div class="section-body">
@@ -771,8 +865,8 @@ window.__SNAPSHOT__ = {"region": {"eft": 262907.55, "tav": 190670.0, "dp": 11445
     {process:'Payroll / UKG', name:'Payroll Deadline Guide', url:'#', owner:'Area Leadership', updated:'2026-04-18'},
     {process:'Visits / Leadership', name:'Visit Scorecard Standards', url:'#', owner:'PTAM', updated:'2026-04-18'},
     {process:'Visits / Leadership', name:'Leadership Coaching Framework', url:'#', owner:'PTAM', updated:'2026-04-18'},
-    {process:'Reporting / Tracking', name:'Open EFT Tracker', url:'https://mckinnon789.github.io/portal/PTR4-EFT-Tracker.html', owner:'PTAM', updated:'2026-04-18'},
-    {process:'Reporting / Tracking', name:'Open TIS Tracker', url:'https://mckinnon789.github.io/portal/PTR4-TIS-Tracker.html', owner:'PTAM', updated:'2026-04-18'},
+    {process:'Reporting / Tracking', name:'Open EFT Tracker', url:'PTR4-EFT-Tracker.html', owner:'PTAM', updated:'2026-04-18'},
+    {process:'Reporting / Tracking', name:'Open TIS Tracker', url:'PTR4-TIS-Tracker.html', owner:'PTAM', updated:'2026-04-18'},
     {process:'Reporting / Tracking', name:'Open PTR4 Stat Tracker', url:'https://docs.google.com/spreadsheets/d/e/2PACX-1vTMx3d6l9CTxn-rd1Kt7lvp-Oa4NyQNf-YWaN8V_NEdKGFLxdMHvegG-uiFNMMTbQ/pubhtml', owner:'PTAM', updated:'2026-04-18'}
   ];
   const DEFAULT_CHECKLIST = ['POS booking %','Sales floor presence','Price integrity','Calendar review','GM/PTM alignment','Confirmation cadence'];
@@ -796,6 +890,8 @@ window.__SNAPSHOT__ = {"region": {"eft": 262907.55, "tav": 190670.0, "dp": 11445
     systems: normalizeSystems(load(STORE.systems, DEFAULT_SYSTEMS)),
     checklist: load(STORE.checklist, DEFAULT_CHECKLIST),
     calendarDate: new Date(),
+    showAllClubs: false,
+    liveError: '',
     editingEventId: null,
     editingVisitId: null
   };
@@ -1216,10 +1312,29 @@ window.__SNAPSHOT__ = {"region": {"eft": 262907.55, "tav": 190670.0, "dp": 11445
   }
   function renderTopStatus() {
     const now = new Date();
+    const region = state.data.region || {};
+    const eftGapValue = Number(region.eft||0) - Number(region.goal||0);
+    const revenueGapValue = Number(region.revActual||0) - Number(region.revGoal||0);
     $('liveTimePill').textContent = `Live Time ${
       now.toLocaleTimeString([], {hour:'numeric', minute:'2-digit'})
     }`;
     $('lastSyncPill').textContent = `Last Sync ${ state.lastSync ? state.lastSync.toLocaleTimeString([], {hour:'numeric', minute:'2-digit'}) : 'Snapshot' }`;
+    if ($('focusEft')) $('focusEft').textContent = fmtMoney(region.eft);
+    if ($('focusEftGap')) $('focusEftGap').textContent = `${eftGapValue >= 0 ? 'Ahead' : 'Behind'} ${fmtMoney(Math.abs(eftGapValue))}`;
+    if ($('focusRevenue')) $('focusRevenue').textContent = fmtMoney(region.revActual);
+    if ($('focusRevenueGap')) $('focusRevenueGap').textContent = `${revenueGapValue >= 0 ? 'Ahead' : 'Behind'} ${fmtMoney(Math.abs(revenueGapValue))}`;
+    if ($('focusShow')) $('focusShow').textContent = fmtPct(region.showRate);
+    if ($('focusClose')) $('focusClose').textContent = fmtPct(region.closeRate);
+    const sourceState = state.liveError ? 'Snapshot' : (state.lastSync ? 'Connected' : 'Snapshot');
+    if ($('utilitySync')) $('utilitySync').textContent = sourceState;
+    if ($('utilityTime')) $('utilityTime').textContent = state.lastSync ? state.lastSync.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}) : 'Not refreshed';
+    if ($('dataConnectionSummary')) {
+      $('dataConnectionSummary').textContent = state.liveError
+        ? 'Live feed issue · using saved snapshot'
+        : state.lastSync
+          ? `Connected · refreshed ${state.lastSync.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}`
+          : 'Snapshot ready · open to manage source';
+    }
   }
 
   function trendFor(label, metrics) {
@@ -1343,9 +1458,9 @@ function renderAreaCards() {
       </div>
       <div class="area-metrics">
         ${[
-          ['EFT Actual', fmtMoney(a.eft)], ['EFT Goal', fmtMoney(a.goal)], ['Gap to EFT Goal', fmtMoney(gap)], ['Rev Actual', fmtMoney(a.revActual)], ['Rev Goal', fmtMoney(a.revGoal)], ['Gap to Rev Goal', fmtMoney(a.revGap)],
-          ['TAV', fmtMoney(a.tav)], ['DP', fmtMoney(a.dp)], ['POS Booking', fmtPct(a.posBooking)],
-          ['Sets', fmtNum(a.sets)], ['Shows', fmtNum(a.shows)], ['Closes', fmtNum(a.closes)], ['Show %', fmtPct(a.showRate)], ['Close %', fmtPct(a.closeRate)]
+          ['EFT Actual', fmtMoney(a.eft)], ['EFT Goal', fmtMoney(a.goal)], ['Gap to EFT Goal', fmtMoney(gap)],
+          ['Revenue', fmtMoney(a.revActual)], ['Show %', fmtPct(a.showRate)], ['Close %', fmtPct(a.closeRate)],
+          ['POS Booking', fmtPct(a.posBooking)], ['Closes', fmtNum(a.closes)]
         ].map(([k,v])=>`<div class="metric"><span class="m-label">${k}</span><strong title="${v}">${v}</strong></div>`).join('')}
       </div>
       <div class="area-footer-band">
@@ -1376,14 +1491,45 @@ function renderAreaCards() {
 }
 
   
+function clubPriorityScore(club) {
+  const gap = Math.max(0, Number(club.goal||0) - Number(club.eft||0));
+  const showPenalty = Math.max(0, 60 - Number(club.showRate||0)) * 80;
+  const closePenalty = Math.max(0, 30 - Number(club.closeRate||0)) * 120;
+  const bookingPenalty = Math.max(0, 50 - Number(club.posBooking||0)) * 40;
+  return gap + showPenalty + closePenalty + bookingPenalty;
+}
+
 function renderClubSections() {
   const active = state.settings.activeArea;
   $('filterBanner').classList.toggle('active', active !== 'All');
   $('filterText').textContent = active !== 'All' ? `Showing only ${active} clubs` : '';
   const search = $('clubSearch').value.toLowerCase().trim();
   const areas = Object.keys(state.data.clubsByArea).filter(name => active==='All' || active===name);
-  $('clubSections').innerHTML = areas.map(area => {
-    const clubs = (state.data.clubsByArea[area] || []).filter(c => !search || c.name.toLowerCase().includes(search));
+  let groups = areas.map(area => ({
+    area,
+    clubs:(state.data.clubsByArea[area] || []).filter(c => !search || c.name.toLowerCase().includes(search))
+  }));
+  const priorityMode = active === 'All' && !search && !state.showAllClubs;
+  const priorityLimit = window.matchMedia('(max-width: 700px)').matches ? 8 : 18;
+  if (priorityMode) {
+    const clubs = groups.flatMap(group => group.clubs.map(club => ({...club, area:club.area || group.area})))
+      .sort((a,b)=>clubPriorityScore(b)-clubPriorityScore(a))
+      .slice(0,priorityLimit);
+    groups = [{area:'Priority clubs', clubs}];
+  }
+  if ($('clubViewSummary')) {
+    $('clubViewSummary').textContent = priorityMode
+      ? `Showing the ${priorityLimit} clubs with the largest performance gaps.`
+      : search
+        ? `Search results for “${search}”.`
+        : active !== 'All'
+          ? `Showing every club in ${active}.`
+          : 'Showing every club across the region.';
+  }
+  if ($('showAllClubsBtn')) $('showAllClubsBtn').textContent = state.showAllClubs ? 'Show Priority Clubs' : 'Show Every Club';
+  $('clubSections').innerHTML = groups.map(group => {
+    const area = group.area;
+    const clubs = group.clubs;
     return `
     <div class="club-area">
       <div class="club-head"><h3 style="margin:0;font-size:28px;letter-spacing:-.04em">${area}</h3><div class="pill">${clubs.length} clubs</div></div>
@@ -1406,9 +1552,8 @@ function renderClubSections() {
             </div>
             <div class="club-metrics">
               ${[
-                ['EFT Actual', fmtMoney(club.eft)], ['EFT Goal', fmtMoney(club.goal)], ['Gap to EFT Goal', fmtMoney(eftGap(club.eft,club.goal))], ['Rev Actual', fmtMoney(club.revActual)], ['Rev Goal', fmtMoney(club.revGoal)], ['Gap to Rev Goal', fmtMoney(club.revGap)],
-                ['TAV', fmtMoney(club.tav)], ['DP', fmtMoney(club.dp)], ['POS Booking', fmtPct(club.posBooking)],
-                ['Sets', fmtNum(club.sets)], ['Shows', fmtNum(club.shows)], ['Closes', fmtNum(club.closes)], ['Show %', fmtPct(club.showRate)], ['Close %', fmtPct(club.closeRate)]
+                ['EFT Actual', fmtMoney(club.eft)], ['EFT Goal', fmtMoney(club.goal)], ['EFT Gap', fmtMoney(eftGap(club.eft,club.goal))],
+                ['Show %', fmtPct(club.showRate)], ['Close %', fmtPct(club.closeRate)], ['POS Booking', fmtPct(club.posBooking)]
               ].map(([k,v])=>`<div class="metric"><span class="m-label">${k}</span><strong title="${v}">${v}</strong></div>`).join('')}
             </div>
             <div class="club-footer-band">
@@ -1425,6 +1570,13 @@ function renderClubSections() {
             </div>
             <div class="club-details">
               <div class="club-details-inner">
+                <div class="club-detail-metrics">
+                  ${[
+                    ['Revenue', fmtMoney(club.revActual)], ['Revenue Goal', fmtMoney(club.revGoal)],
+                    ['Revenue Gap', fmtMoney(club.revGap)], ['TAV', fmtMoney(club.tav)],
+                    ['Down Payment', fmtMoney(club.dp)], ['Sets / Shows', `${fmtNum(club.sets)} / ${fmtNum(club.shows)}`]
+                  ].map(([k,v])=>`<div class="metric"><span class="m-label">${k}</span><strong title="${v}">${v}</strong></div>`).join('')}
+                </div>
                 <div class="quick-action-row">
                   <button class="quick-action-btn" type="button" aria-label="Open ${club.name} club">Open Club</button>
                   <button class="quick-action-btn" type="button" aria-label="Log action for ${club.name}">Log Action</button>
@@ -1443,6 +1595,23 @@ function renderClubSections() {
       </div>
     </div>`;
   }).join('');
+  document.querySelectorAll('.club-card').forEach(card => {
+    card.setAttribute('tabindex','0');
+    card.setAttribute('role','button');
+    card.setAttribute('aria-expanded','false');
+    const toggle = () => {
+      const open = card.classList.toggle('expanded');
+      card.setAttribute('aria-expanded', String(open));
+      const indicator = card.querySelector('.club-expand-indicator');
+      if (indicator) indicator.textContent = open ? '–' : '+';
+    };
+    card.addEventListener('click', event => {
+      if (!event.target.closest('button,a,input,select,textarea')) toggle();
+    });
+    card.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); toggle(); }
+    });
+  });
 }
 
 
@@ -1605,7 +1774,13 @@ function renderClubSections() {
   }
   function renderSystems() {
     const groups = PROCESS_ORDER.map(process => [process, state.systems.filter(s => s.process === process)]).filter(([,items])=>items.length);
-    $('systemLinksList').innerHTML = groups.map(([process,items]) => `<div class="process-group"><div class="inline-row" style="justify-content:space-between;align-items:flex-start"><div><h4>${process}</h4><div class="small">${process === 'ClubOS & Follow-Up' ? 'ClubOS workflows, follow-up, and delinquency live here.' : 'Central process documentation and quick-open links.'}</div></div><span class="badge purple">${items.length} link${items.length===1?'':'s'}</span></div><div class="process-items">${items.map((s)=>`<div class="process-link"><h5>${s.name}</h5><div class="small">Owner: ${s.owner}</div><div class="small">Last Updated: ${s.updated}</div><a class="btn dark" href="${s.url}" target="_blank" rel="noopener">Open</a></div>`).join('')}</div></div>`).join('') || '<div class="small">No process links configured.</div>';
+    $('systemLinksList').innerHTML = groups.map(([process,items]) => `<div class="process-group"><div class="inline-row" style="justify-content:space-between;align-items:flex-start"><div><h4>${process}</h4><div class="small">${process === 'ClubOS & Follow-Up' ? 'ClubOS workflows, follow-up, and delinquency live here.' : 'Central process documentation and quick-open links.'}</div></div><span class="badge purple">${items.length} link${items.length===1?'':'s'}</span></div><div class="process-items">${items.map((s)=> {
+      const configured = Boolean(s.url && s.url.trim() && s.url.trim() !== '#');
+      const link = configured
+        ? `<a class="btn dark" href="${s.url}" target="_blank" rel="noopener">Open</a>`
+        : '<span class="btn dark disabled" aria-disabled="true">Not configured</span>';
+      return `<div class="process-link"><h5>${s.name}</h5><div class="small">Owner: ${s.owner}</div><div class="small">Last Updated: ${s.updated}</div>${link}</div>`;
+    }).join('')}</div></div>`).join('') || '<div class="small">No process links configured.</div>';
     $('systemAdmin').innerHTML = state.systems.map((s,i)=>`<div class="system-row"><select class="select" data-sys-process="${i}">${PROCESS_ORDER.map(p=>`<option value="${p}" ${p===s.process?'selected':''}>${p}</option>`).join('')}</select><input class="input" value="${s.owner.replace(/"/g,'&quot;')}" data-sys-owner="${i}" placeholder="Owner"><input class="input" value="${s.name.replace(/"/g,'&quot;')}" data-sys-name="${i}" placeholder="Name"><input class="input" value="${s.url.replace(/"/g,'&quot;')}" data-sys-url="${i}" placeholder="URL"><input class="input" value="${s.updated.replace(/"/g,'&quot;')}" data-sys-updated="${i}" placeholder="YYYY-MM-DD"><button class="btn dark" data-del-sys="${i}">Delete</button></div>`).join('');
     document.querySelectorAll('[data-sys-process]').forEach(inp=>inp.addEventListener('change',()=> { state.systems[Number(inp.dataset.sysProcess)].process = inp.value; save(STORE.systems,state.systems); renderSystems(); }));
     document.querySelectorAll('[data-sys-owner]').forEach(inp=>inp.addEventListener('change',()=> { state.systems[Number(inp.dataset.sysOwner)].owner = inp.value; save(STORE.systems,state.systems); renderSystems(); }));
@@ -1681,6 +1856,7 @@ function renderClubSections() {
       state.data = JSON.parse(JSON.stringify(state.snapshot));
     }
     state.lastSync = new Date();
+    state.liveError = error;
     renderAll();
     $('refreshBtn').textContent = error ? 'Using Snapshot' : 'Refresh KPIs';
     $('lastSyncPill').textContent = error ? `Live feed issue · ${error}` : `Last Sync ${state.lastSync.toLocaleTimeString([], {hour:'numeric', minute:'2-digit'})}`;
@@ -1700,6 +1876,7 @@ function renderClubSections() {
   $('csvUrlInput').value = state.settings.csvUrl || state.snapshot.defaultCsvUrl;
   if ($('downloadCsvBtn')) $('downloadCsvBtn').href = csvDownloadUrl($('csvUrlInput').value);
   $('clubSearch').addEventListener('input', renderClubSections);
+  $('showAllClubsBtn').addEventListener('click', ()=>{ state.showAllClubs = !state.showAllClubs; renderClubSections(); });
   $('clearFilterBtn').addEventListener('click', ()=>{ state.settings.activeArea='All'; save(STORE.settings,state.settings); $('areaFilter').value='All'; renderAreaCards(); renderClubSections(); });
   $('areaFilter').addEventListener('change', ()=>{ state.settings.activeArea = $('areaFilter').value; save(STORE.settings,state.settings); renderAreaCards(); renderClubSections(); });
   $('saveCsvBtn').addEventListener('click', ()=>{ state.settings.csvUrl = normCsv($('csvUrlInput').value); save(STORE.settings,state.settings); if ($('downloadCsvBtn')) $('downloadCsvBtn').href = csvDownloadUrl(state.settings.csvUrl); hydrateData(); });
@@ -1714,6 +1891,7 @@ function renderClubSections() {
       if (!parsed) throw new Error('CSV parser could not map this file.');
       state.data = { region: parsed.region, areas: parsed.areas, clubsByArea: parsed.clubsByArea };
       state.lastSync = new Date();
+      state.liveError = '';
       renderAll();
       $('lastSyncPill').textContent = `Imported CSV ${state.lastSync.toLocaleTimeString([], {hour:'numeric', minute:'2-digit'})}`;
       $('refreshBtn').textContent = 'Refresh KPIs';
@@ -1725,6 +1903,11 @@ function renderClubSections() {
     }
   });
   $('adminToggle').addEventListener('click', ()=>$('adminSection').classList.toggle('hidden'));
+  $('adminNavLink')?.addEventListener('click', event => {
+    event.preventDefault();
+    $('adminSection').classList.remove('hidden');
+    $('adminSection').scrollIntoView({behavior:'smooth',block:'start'});
+  });
   $('prevMonthBtn').addEventListener('click', ()=>{ state.calendarDate.setMonth(state.calendarDate.getMonth()-1); renderCalendar(); });
   $('nextMonthBtn').addEventListener('click', ()=>{ state.calendarDate.setMonth(state.calendarDate.getMonth()+1); renderCalendar(); });
   $('todayBtn').addEventListener('click', ()=>{ state.calendarDate = new Date(); renderCalendar(); });
@@ -2037,7 +2220,7 @@ let cfg=Object.assign({},defaults,parse(LS.cfg,{})); cfg.sections=Object.assign(
 let views=Object.assign({},defaultViews,parse(LS.views,{})); let media=parse(LS.media,[]); let templates=parse(LS.templates,[{name:'Standard Visit',checklist:['POS booking checked','Calendar reviewed','Pricing integrity checked','Follow-up cadence reviewed']},{name:'Turnaround Visit',checklist:['Root issue identified','2 immediate actions assigned','48-hour follow-up scheduled']},{name:'Closeout Visit',checklist:['Deal pacing reviewed','No-show recovery plan set','Close support assigned']}]);
 const sectionMap={hero:document.querySelector('.hero'),areas:document.getElementById('areaCards')?.closest('.section'),clubs:document.getElementById('clubSections')?.closest('.section'),ops:document.querySelector('.two-col'),admin:document.getElementById('adminSection')};
 function persist(){ save(LS.cfg,cfg); }
-function ensureHeaderViewTools(){ const target=document.querySelector('.utility-right')||document.querySelector('.site-nav'); if(!target||document.getElementById('headerViewTools')) return; const wrap=document.createElement('div'); wrap.className='header-view-tools'; wrap.id='headerViewTools'; wrap.innerHTML='<span class="cs-pill">Saved Views</span><select class="select" id="headerViewSelect"></select><button class="btn dark" id="headerViewApply">Apply</button><button class="btn ghost" id="headerViewClear">Clear</button><span class="cs-pill view-active-badge" id="activeViewBadge"></span>'; target.appendChild(wrap); }
+function ensureHeaderViewTools(){ const target=document.querySelector('#adminSection .section-body'); if(!target||document.getElementById('headerViewTools')) return; const wrap=document.createElement('div'); wrap.className='header-view-tools'; wrap.id='headerViewTools'; wrap.innerHTML='<span class="cs-pill">Saved Views</span><select class="select" id="headerViewSelect" aria-label="Saved dashboard view"></select><button class="btn dark" id="headerViewApply">Apply</button><button class="btn ghost" id="headerViewClear">Clear</button><span class="cs-pill view-active-badge" id="activeViewBadge"></span>'; target.prepend(wrap); }
 function ensureAnnouncementBar(){ if(document.getElementById('announcementBar')) return; const nav=document.querySelector('.site-nav'); if(!nav) return; const bar=document.createElement('div'); bar.id='announcementBar'; bar.innerHTML='<div class="bar-copy"><div class="bar-title">Announcement</div><div class="bar-msg" id="announcementMsg"></div><div class="bar-meta" id="announcementMeta"></div></div><div class="cs-pill" id="announcementTone"></div>'; nav.insertAdjacentElement('afterend',bar); }
 function renderAnnouncement(){ const bar=document.getElementById('announcementBar'); if(!bar) return; const a=cfg.announcement; bar.classList.toggle('show',!!a.enabled); document.getElementById('announcementMsg').textContent=a.message||''; document.getElementById('announcementMeta').textContent=a.meta||''; document.getElementById('announcementTone').textContent=a.tone||'focus'; }
 function renderHeaderViews(){ const sel=document.getElementById('headerViewSelect'); if(!sel) return; sel.innerHTML=''; Object.keys(views).forEach(k=>{ const o=document.createElement('option'); o.value=k; o.textContent=k; if(k===cfg.view) o.selected=true; sel.appendChild(o);}); const badge=document.getElementById('activeViewBadge'); if(badge) badge.textContent='View: '+(cfg.view||'Custom'); const adminSel=document.getElementById('csViewSelect'); if(adminSel){ adminSel.innerHTML=sel.innerHTML; adminSel.value=cfg.view; }}
@@ -2045,16 +2228,27 @@ function applyThemeFresh(name){ const t=themePresets[name]||themePresets.wolfpac
 function applyView(name){ const v=views[name]; if(!v) return; cfg.view=name; if(v.sections) cfg.sections=Object.assign({},cfg.sections,v.sections); persist(); applySections(); renderHeaderViews(); const af=document.getElementById('areaFilter'); if(af&&v.area){ af.value=v.area; af.dispatchEvent(new Event('change',{bubbles:true})); } }
 function clearView(){ cfg.view='Custom'; persist(); renderHeaderViews(); }
 function applySections(){ Object.entries(sectionMap).forEach(([k,n])=>{ if(n) n.style.display=cfg.sections[k]===false?'none':''; }); const title=document.querySelector('#adminSection h2'); if(title) title.textContent=cfg.sectionLabels.admin||'Admin & Links'; }
-function setupControlStudio(){ const body=document.querySelector('#adminSection .section-body'); if(!body||document.getElementById('controlStudioV54')) return; const studio=document.createElement('div'); studio.className='control-studio'; studio.id='controlStudioV54'; studio.innerHTML='<div class="cs-inline" style="justify-content:space-between;align-items:flex-start"><div><h3>Control Studio</h3><p>Fresh admin layer for saved views, announcement control, rules, media, templates, and publishing without moving the v43 layout.</p></div><div class="cs-pill" id="lockStatePill">Unlocked</div></div><div class="cs-grid"><div class="cs-card"><h4>Saved Views + Header Control</h4><div class="lockable cs-stack"><div class="cs-inline"><select class="select" id="csViewSelect"></select><button class="btn dark" id="csApplyView">Apply</button><button class="btn ghost" id="csSaveView">Save Current</button><button class="btn ghost" id="csDeleteView">Delete</button></div><input type="text" id="csNewViewName" placeholder="Custom view name"><div class="small">Applies live from the header and Admin.</div></div></div><div class="cs-card"><h4>Announcement Bar</h4><div class="lockable cs-stack"><label><input type="checkbox" id="csAnnouncementEnabled"> Enable announcement bar</label><select class="select" id="csAnnouncementTone"><option value="focus">Focus</option><option value="urgent">Urgent</option><option value="standard">Standard</option></select><input type="text" id="csAnnouncementMessage" placeholder="Message"><input type="text" id="csAnnouncementMeta" placeholder="Meta line"><button class="btn dark" id="csApplyAnnouncement">Apply Announcement</button></div></div><div class="cs-card"><h4>Rules Engine</h4><div class="lockable cs-table"><div class="cs-row"><span>Show % threshold</span><input type="number" id="ruleShow"><span>%</span></div><div class="cs-row"><span>Close % threshold</span><input type="number" id="ruleClose"><span>%</span></div><div class="cs-row"><span>EFT gap threshold</span><input type="number" id="ruleEft"><span>$</span></div><div class="cs-row"><span>POS booking threshold</span><input type="number" id="rulePos"><span>%</span></div><button class="btn dark" id="applyRulesBtn">Apply Rules</button></div></div><div class="cs-card"><h4>Media Library</h4><div class="lockable cs-stack"><input type="text" id="mediaUrl" placeholder="Image URL"><input type="file" id="mediaUpload" accept="image/*"><div class="cs-inline"><button class="btn dark" id="addMediaUrlBtn">Add by URL</button><button class="btn ghost" id="addMediaUploadBtn">Add Upload</button></div><div class="cs-media-list" id="csMediaList"></div></div></div><div class="cs-card"><h4>Visit Template Manager</h4><div class="lockable cs-stack"><input type="text" id="templateName" placeholder="Template name"><textarea id="templateChecklist" placeholder="One checklist item per line"></textarea><div class="cs-inline"><button class="btn dark" id="saveTemplateBtn">Save Template</button><button class="btn ghost" id="applyTemplateBtn">Apply to Visit Form</button></div><select class="select" id="templateSelect"></select><div class="cs-template-list" id="csTemplateList"></div></div></div><div class="cs-card"><h4>Action Board View Selector</h4><div class="lockable cs-stack"><select class="select" id="actionViewSelect"><option value="status">By Status</option><option value="owner">By Owner</option><option value="club">By Club</option><option value="area">By Area</option><option value="due">By Due Date</option></select><button class="btn dark" id="applyActionViewBtn">Apply Action View</button><div class="small">Changes presentation order of action items live.</div></div></div><div class="cs-card"><h4>Content Lock • Draft • Publish • Revert</h4><div class="cs-stack"><div class="cs-lock"><div><strong>Global content lock</strong><div class="small" id="lockMeta">Editing available</div></div><button class="btn dark" id="toggleLockBtn">Lock</button></div><div class="lockable cs-inline"><button class="btn ghost" id="saveDraftBtn">Save Draft</button><button class="btn dark" id="publishBtn">Publish</button><button class="btn ghost" id="revertBtn">Revert</button></div><div class="small" id="publishMeta">No saved snapshots yet.</div></div></div><div class="cs-card"><h4>Full Edit Mode + Photo Editing</h4><div class="lockable cs-stack"><div class="small">Control Studio access to the site-wide edit layer.</div><div class="cs-inline"><button class="btn dark" id="csToggleEdit">Toggle Edit Mode</button><button class="btn ghost" id="csResetText">Reset Text</button><button class="btn ghost" id="csResetImages">Reset Photos</button></div></div></div><div class="cs-card"><h4>Themes</h4><div class="lockable cs-stack"><div class="cs-theme-grid" id="csThemeGrid"></div></div></div></div>'; body.appendChild(studio); }
+function setupControlStudio(){ const body=document.querySelector('#adminSection .section-body'); if(!body||document.getElementById('controlStudioV54')) return; const studio=document.createElement('div'); studio.className='control-studio'; studio.id='controlStudioV54'; studio.innerHTML='<div class="cs-inline" style="justify-content:space-between;align-items:flex-start"><div><h3>Control Studio</h3><p>Manage saved views, announcements, operating thresholds, media, visit templates, and published snapshots.</p></div><div class="cs-pill" id="lockStatePill">Unlocked</div></div><div class="cs-grid"><div class="cs-card"><h4>Saved Views + Header Control</h4><div class="lockable cs-stack"><div class="cs-inline"><select class="select" id="csViewSelect"></select><button class="btn dark" id="csApplyView">Apply</button><button class="btn ghost" id="csSaveView">Save Current</button><button class="btn ghost" id="csDeleteView">Delete</button></div><input type="text" id="csNewViewName" placeholder="Custom view name"><div class="small">Applies live from the header and Admin.</div></div></div><div class="cs-card"><h4>Announcement Bar</h4><div class="lockable cs-stack"><label><input type="checkbox" id="csAnnouncementEnabled"> Enable announcement bar</label><select class="select" id="csAnnouncementTone"><option value="focus">Focus</option><option value="urgent">Urgent</option><option value="standard">Standard</option></select><input type="text" id="csAnnouncementMessage" placeholder="Message"><input type="text" id="csAnnouncementMeta" placeholder="Meta line"><button class="btn dark" id="csApplyAnnouncement">Apply Announcement</button></div></div><div class="cs-card"><h4>Rules Engine</h4><div class="lockable cs-table"><div class="cs-row"><span>Show % threshold</span><input type="number" id="ruleShow"><span>%</span></div><div class="cs-row"><span>Close % threshold</span><input type="number" id="ruleClose"><span>%</span></div><div class="cs-row"><span>EFT gap threshold</span><input type="number" id="ruleEft"><span>$</span></div><div class="cs-row"><span>POS booking threshold</span><input type="number" id="rulePos"><span>%</span></div><button class="btn dark" id="applyRulesBtn">Apply Rules</button></div></div><div class="cs-card"><h4>Media Library</h4><div class="lockable cs-stack"><input type="text" id="mediaUrl" placeholder="Image URL"><input type="file" id="mediaUpload" accept="image/*"><div class="cs-inline"><button class="btn dark" id="addMediaUrlBtn">Add by URL</button><button class="btn ghost" id="addMediaUploadBtn">Add Upload</button></div><div class="cs-media-list" id="csMediaList"></div></div></div><div class="cs-card"><h4>Visit Template Manager</h4><div class="lockable cs-stack"><input type="text" id="templateName" placeholder="Template name"><textarea id="templateChecklist" placeholder="One checklist item per line"></textarea><div class="cs-inline"><button class="btn dark" id="saveTemplateBtn">Save Template</button><button class="btn ghost" id="applyTemplateBtn">Apply to Visit Form</button></div><select class="select" id="templateSelect"></select><div class="cs-template-list" id="csTemplateList"></div></div></div><div class="cs-card"><h4>Action Board View Selector</h4><div class="lockable cs-stack"><select class="select" id="actionViewSelect"><option value="status">By Status</option><option value="owner">By Owner</option><option value="club">By Club</option><option value="area">By Area</option><option value="due">By Due Date</option></select><button class="btn dark" id="applyActionViewBtn">Apply Action View</button><div class="small">Changes presentation order of action items live.</div></div></div><div class="cs-card"><h4>Content Lock • Draft • Publish • Revert</h4><div class="cs-stack"><div class="cs-lock"><div><strong>Global content lock</strong><div class="small" id="lockMeta">Editing available</div></div><button class="btn dark" id="toggleLockBtn">Lock</button></div><div class="lockable cs-inline"><button class="btn ghost" id="saveDraftBtn">Save Draft</button><button class="btn dark" id="publishBtn">Publish</button><button class="btn ghost" id="revertBtn">Revert</button></div><div class="small" id="publishMeta">No saved snapshots yet.</div></div></div><div class="cs-card"><h4>Full Edit Mode + Photo Editing</h4><div class="lockable cs-stack"><div class="small">Control Studio access to the site-wide edit layer.</div><div class="cs-inline"><button class="btn dark" id="csToggleEdit">Toggle Edit Mode</button><button class="btn ghost" id="csResetText">Reset Text</button><button class="btn ghost" id="csResetImages">Reset Photos</button></div></div></div><div class="cs-card"><h4>Themes</h4><div class="lockable cs-stack"><div class="cs-theme-grid" id="csThemeGrid"></div></div></div></div>'; body.appendChild(studio); }
 function renderControlStudio(){ renderHeaderViews(); document.getElementById('csAnnouncementEnabled').checked=!!cfg.announcement.enabled; document.getElementById('csAnnouncementTone').value=cfg.announcement.tone||'focus'; document.getElementById('csAnnouncementMessage').value=cfg.announcement.message||''; document.getElementById('csAnnouncementMeta').value=cfg.announcement.meta||''; document.getElementById('ruleShow').value=cfg.rules.show; document.getElementById('ruleClose').value=cfg.rules.close; document.getElementById('ruleEft').value=cfg.rules.eftGap; document.getElementById('rulePos').value=cfg.rules.pos; const tg=document.getElementById('csThemeGrid'); if(tg){ tg.innerHTML=''; Object.entries(themePresets).forEach(([k,v])=>{ const d=document.createElement('div'); d.className='cs-theme'+(cfg.themes.active===k?' active':''); d.dataset.theme=k; d.innerHTML='<div class="cs-swatches"><span style="background:'+v['--blurple']+'"></span><span style="background:'+v['--violet']+'"></span><span style="background:'+v['--aqua']+'"></span></div><strong>'+k+'</strong>'; d.onclick=()=>applyThemeFresh(k); tg.appendChild(d);}); } const ml=document.getElementById('csMediaList'); if(ml){ ml.innerHTML=''; media.forEach((m,idx)=>{ const item=document.createElement('div'); item.className='cs-media-item'; item.innerHTML='<div class="preview"><img src="'+m.url+'" alt="'+(m.name||'Media')+'"></div><div class="small"><strong>'+(m.name||('Media '+(idx+1)))+'</strong></div><div class="cs-inline" style="margin-top:8px"><button class="btn ghost" data-apply-media="'+idx+'">Apply to selected image</button><button class="btn ghost" data-del-media="'+idx+'">Delete</button></div>'; ml.appendChild(item);}); } const ts=document.getElementById('templateSelect'); const tl=document.getElementById('csTemplateList'); if(ts&&tl){ ts.innerHTML=''; tl.innerHTML=''; templates.forEach((t,idx)=>{ const o=document.createElement('option'); o.value=idx; o.textContent=t.name; ts.appendChild(o); const row=document.createElement('div'); row.className='cs-template-item'; row.innerHTML='<strong>'+t.name+'</strong><div class="small" style="margin-top:6px">'+t.checklist.join(' • ')+'</div><div class="cs-inline" style="margin-top:8px"><button class="btn ghost" data-use-template="'+idx+'">Use</button><button class="btn ghost" data-del-template="'+idx+'">Delete</button></div>'; tl.appendChild(row);}); } const locked=localStorage.getItem(LS.locked)==='1'; document.body.classList.toggle('is-locked',locked); document.getElementById('lockStatePill').textContent=locked?'Locked':'Unlocked'; document.getElementById('lockMeta').textContent=locked?'Editing and studio controls are locked.':'Editing available'; document.getElementById('toggleLockBtn').textContent=locked?'Unlock':'Lock'; const draft=parse(LS.draft,null), pub=parse(LS.pub,null); const meta=[]; if(draft&&draft.time) meta.push('Draft: '+new Date(draft.time).toLocaleString()); if(pub&&pub.time) meta.push('Published: '+new Date(pub.time).toLocaleString()); document.getElementById('publishMeta').textContent=meta.join(' • ')||'No saved snapshots yet.'; }
 function snapshot(){ return {cfg:cfg,views:views,media:media,templates:templates,time:Date.now()}; }
 function restore(s){ if(!s) return; cfg=s.cfg||cfg; views=s.views||views; media=s.media||media; templates=s.templates||templates; persist(); save(LS.views,views); save(LS.media,media); save(LS.templates,templates); renderAnnouncement(); applySections(); renderControlStudio(); renderHeaderViews(); applyThemeFresh(cfg.themes.active||'wolfpack'); applyRules(); }
-function parsePct(text,label){ const r=new RegExp(label+'[^\d-]*(-?\d+(?:\.\d+)?)%','i'); const m=text.match(r); return m?parseFloat(m[1]):null; }
-function parseMoney(text,label){ const r=new RegExp(label+'[^$\d-]*\$?(-?[\d,]+(?:\.\d+)?)','i'); const m=text.match(r); return m?parseFloat(m[1].replace(/,/g,'')):null; }
-function applyRules(){ const cards=[].slice.call(document.querySelectorAll('.club-card,.area-card')); cards.forEach(card=>{ card.removeAttribute('data-rule-state'); const text=card.innerText.replace(/\s+/g,' '); const show=parsePct(text,'Show'); const close=parsePct(text,'Close'); const pos=parsePct(text,'POS'); const eftGap=parseMoney(text,'Gap to EFT Goal')||parseMoney(text,'EFT Gap')||parseMoney(text,'Gap'); let state='opportunity'; if((show!=null&&show<cfg.rules.show)||(close!=null&&close<cfg.rules.close)||(eftGap!=null&&eftGap<(-1*cfg.rules.eftGap))) state='priority'; else if((pos!=null&&pos<cfg.rules.pos)||(eftGap!=null&&eftGap<0)) state='attention'; card.dataset.ruleState=state; let note=card.querySelector('.rule-note'); if(!note){ note=document.createElement('div'); note.className='rule-note'; card.appendChild(note);} note.textContent=state==='priority'?'Priority: fix process + production now':state==='attention'?'Attention: tighten bookings and follow-up':'Opportunity: press advantage and protect pace'; }); document.querySelectorAll('.confidence-pill,[class*="confidence-pill"]').forEach(el=>el.remove()); }
+function parsePct(text,label){ const r=new RegExp(label+'[^\\d-]*(-?\\d+(?:\\.\\d+)?)%','i'); const m=text.match(r); return m?parseFloat(m[1]):null; }
+function parseMoney(text,label){ const r=new RegExp(label+'[^$\\d-]*\\$?(-?[\\d,]+(?:\\.\\d+)?)','i'); const m=text.match(r); return m?parseFloat(m[1].replace(/,/g,'')):null; }
+function applyRules(){ const cards=[].slice.call(document.querySelectorAll('.club-card,.area-card')); cards.forEach(card=>{ card.removeAttribute('data-rule-state'); const text=card.innerText.replace(/\s+/g,' '); const show=parsePct(text,'Show'); const close=parsePct(text,'Close'); const pos=parsePct(text,'POS'); const eftGap=parseMoney(text,'Gap to EFT Goal')??parseMoney(text,'EFT Gap')??parseMoney(text,'Gap'); let state='opportunity'; if((show!=null&&show<cfg.rules.show)||(close!=null&&close<cfg.rules.close)||(eftGap!=null&&eftGap<(-1*cfg.rules.eftGap))) state='priority'; else if((pos!=null&&pos<cfg.rules.pos)||(eftGap!=null&&eftGap<0)) state='attention'; card.dataset.ruleState=state; }); }
 function applyActionView(){ const mode=cfg.actionView||'status'; const list=document.getElementById('actionList'); if(!list) return; const items=[].slice.call(list.children); function keyFor(el){ const t=el.innerText.toLowerCase(); if(mode==='owner') return ((t.match(/owner[:\s]+([a-z -]+)/i)||['','zzz'])[1]); if(mode==='club') return ((t.match(/^([\w ,.-]+)/)||['','zzz'])[1]); if(mode==='area') return ((t.match(/area[:\s]+([a-z -]+)/i)||['','zzz'])[1]); if(mode==='due') return /overdue|due today/i.test(t)?'a':'b'; return /overdue/i.test(t)?'a':(/escal/i.test(t)?'b':'c'); } items.sort((a,b)=>String(keyFor(a)).localeCompare(String(keyFor(b)))).forEach(el=>list.appendChild(el)); }
 function hookup(){ document.getElementById('headerViewApply')&&document.getElementById('headerViewApply').addEventListener('click',()=>applyView(document.getElementById('headerViewSelect').value)); document.getElementById('headerViewClear')&&document.getElementById('headerViewClear').addEventListener('click',clearView); document.getElementById('csApplyView')&&document.getElementById('csApplyView').addEventListener('click',()=>applyView(document.getElementById('csViewSelect').value)); document.getElementById('csSaveView')&&document.getElementById('csSaveView').addEventListener('click',()=>{ const name=(document.getElementById('csNewViewName').value||'').trim(); if(!name) return; views[name]={sections:Object.assign({},cfg.sections),area:(document.getElementById('areaFilter')||{}).value||'All'}; save(LS.views,views); renderControlStudio(); renderHeaderViews(); }); document.getElementById('csDeleteView')&&document.getElementById('csDeleteView').addEventListener('click',()=>{ const name=document.getElementById('csViewSelect').value; if(defaultViews[name]) return; delete views[name]; save(LS.views,views); if(cfg.view===name) cfg.view='PTAM'; renderControlStudio(); renderHeaderViews(); persist(); }); document.getElementById('csApplyAnnouncement')&&document.getElementById('csApplyAnnouncement').addEventListener('click',()=>{ cfg.announcement={enabled:document.getElementById('csAnnouncementEnabled').checked,tone:document.getElementById('csAnnouncementTone').value,message:document.getElementById('csAnnouncementMessage').value,meta:document.getElementById('csAnnouncementMeta').value}; persist(); renderAnnouncement(); }); document.getElementById('applyRulesBtn')&&document.getElementById('applyRulesBtn').addEventListener('click',()=>{ cfg.rules={show:+document.getElementById('ruleShow').value||60,close:+document.getElementById('ruleClose').value||25,eftGap:+document.getElementById('ruleEft').value||3000,pos:+document.getElementById('rulePos').value||70}; persist(); applyRules(); }); document.getElementById('addMediaUrlBtn')&&document.getElementById('addMediaUrlBtn').addEventListener('click',()=>{ const url=document.getElementById('mediaUrl').value.trim(); if(!url) return; media.unshift({name:'Library Asset',url:url}); save(LS.media,media); renderControlStudio(); document.getElementById('mediaUrl').value=''; }); document.getElementById('addMediaUploadBtn')&&document.getElementById('addMediaUploadBtn').addEventListener('click',()=>{ const f=(document.getElementById('mediaUpload').files||[])[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ media.unshift({name:f.name,url:r.result}); save(LS.media,media); renderControlStudio(); }; r.readAsDataURL(f); }); document.addEventListener('click',e=>{ const apply=e.target.closest('[data-apply-media]'); const del=e.target.closest('[data-del-media]'); const useT=e.target.closest('[data-use-template]'); const delT=e.target.closest('[data-del-template]'); if(apply){ const idx=+apply.getAttribute('data-apply-media'); const selected=document.querySelector('.image-editor-backdrop.show')?document.getElementById('imageUrlInput'):null; if(selected){ selected.value=media[idx].url; document.getElementById('imageEditorPreview').src=media[idx].url; }} if(del){ media.splice(+del.getAttribute('data-del-media'),1); save(LS.media,media); renderControlStudio(); } if(useT){ const tpl=templates[+useT.getAttribute('data-use-template')]; const ta=document.getElementById('visitChecklist'); if(tpl&&ta) ta.value=tpl.checklist.join('\\n'); } if(delT){ templates.splice(+delT.getAttribute('data-del-template'),1); save(LS.templates,templates); renderControlStudio(); }}); document.getElementById('saveTemplateBtn')&&document.getElementById('saveTemplateBtn').addEventListener('click',()=>{ const name=document.getElementById('templateName').value.trim(); const lines=document.getElementById('templateChecklist').value.split(/\n+/).map(s=>s.trim()).filter(Boolean); if(!name||!lines.length) return; templates.unshift({name:name,checklist:lines}); save(LS.templates,templates); renderControlStudio(); document.getElementById('templateName').value=''; document.getElementById('templateChecklist').value=''; }); document.getElementById('applyTemplateBtn')&&document.getElementById('applyTemplateBtn').addEventListener('click',()=>{ const idx=+document.getElementById('templateSelect').value; const tpl=templates[idx]; const ta=document.getElementById('visitChecklist'); if(tpl&&ta) ta.value=tpl.checklist.join('\n'); }); document.getElementById('applyActionViewBtn')&&document.getElementById('applyActionViewBtn').addEventListener('click',()=>{ cfg.actionView=document.getElementById('actionViewSelect').value; persist(); applyActionView(); }); document.getElementById('toggleLockBtn')&&document.getElementById('toggleLockBtn').addEventListener('click',()=>{ const locked=localStorage.getItem(LS.locked)==='1'; localStorage.setItem(LS.locked,locked?'0':'1'); renderControlStudio(); }); document.getElementById('saveDraftBtn')&&document.getElementById('saveDraftBtn').addEventListener('click',()=>{ save(LS.draft,snapshot()); renderControlStudio(); }); document.getElementById('publishBtn')&&document.getElementById('publishBtn').addEventListener('click',()=>{ save(LS.pub,snapshot()); renderControlStudio(); }); document.getElementById('revertBtn')&&document.getElementById('revertBtn').addEventListener('click',()=>{ restore(parse(LS.pub,null)||parse(LS.draft,null)); }); document.getElementById('csToggleEdit')&&document.getElementById('csToggleEdit').addEventListener('click',()=>{ if(typeof setEditMode==='function') setEditMode(!document.body.classList.contains('edit-mode')); else document.getElementById('toggleFullEditBtn')&&document.getElementById('toggleFullEditBtn').click(); }); document.getElementById('csResetText')&&document.getElementById('csResetText').addEventListener('click',()=>document.getElementById('resetTextEditsBtn')&&document.getElementById('resetTextEditsBtn').click()); document.getElementById('csResetImages')&&document.getElementById('csResetImages').addEventListener('click',()=>document.getElementById('resetImageEditsBtn')&&document.getElementById('resetImageEditsBtn').click()); }
-function init(){ ensureHeaderViewTools(); ensureAnnouncementBar(); setupControlStudio(); renderAnnouncement(); applySections(); renderControlStudio(); renderHeaderViews(); applyThemeFresh(cfg.themes.active||'wolfpack'); applyRules(); applyActionView(); hookup(); setTimeout(()=>{applyRules();applyActionView();},1000); const mo=new MutationObserver(()=>{applyRules();applyActionView();}); ['actionList','areaCards','clubSections'].forEach(id=>{ const n=document.getElementById(id); if(n) mo.observe(n,{childList:true,subtree:true}); }); }
+function ensureAccessibleControls(root=document){
+  root.querySelectorAll('input,select,textarea').forEach(control=>{
+    if(control.labels?.length||control.getAttribute('aria-label')||control.getAttribute('aria-labelledby')) return;
+    const idLabel=(control.id||'').replace(/([a-z])([A-Z])/g,'$1 $2').replace(/[-_]+/g,' ').trim();
+    control.setAttribute('aria-label',control.placeholder||idLabel||control.type||'Form control');
+  });
+  ['utilitySync','utilityTime','lastSyncPill','dataConnectionSummary'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.setAttribute('aria-live','polite');
+  });
+}
+function init(){ ensureHeaderViewTools(); ensureAnnouncementBar(); setupControlStudio(); renderAnnouncement(); applySections(); renderControlStudio(); renderHeaderViews(); applyThemeFresh(cfg.themes.active||'wolfpack'); applyRules(); applyActionView(); ensureAccessibleControls(); hookup(); setTimeout(()=>{applyRules();applyActionView();ensureAccessibleControls();},1000); const mo=new MutationObserver(()=>{applyRules();ensureAccessibleControls();}); ['areaCards','clubSections','adminSection'].forEach(id=>{ const n=document.getElementById(id); if(n) mo.observe(n,{childList:true,subtree:true}); }); }
 document.addEventListener('DOMContentLoaded',init);
 })();
 </script>

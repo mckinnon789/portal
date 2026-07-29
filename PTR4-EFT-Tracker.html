@@ -262,16 +262,92 @@
       grid-template-columns: 1fr !important;
     }
   }
+  :focus-visible { outline: 3px solid rgba(46,215,222,.82); outline-offset: 3px; }
+  body {
+    font-family: Montserrat, "Avenir Next", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background:
+      radial-gradient(circle at top left, rgba(110,56,213,.16), transparent 24%),
+      linear-gradient(180deg, #080b12 0%, #0b101b 100%);
+  }
+  .product-nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    padding: 11px 18px;
+    background: rgba(8,11,18,.92);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(16px);
+  }
+  .product-brand { display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:-.02em; }
+  .brand-dot { width:10px;height:10px;border-radius:999px;background:var(--aqua);box-shadow:0 0 0 5px rgba(46,215,222,.12); }
+  .product-links { display:flex;gap:8px;flex-wrap:wrap; }
+  .product-links a { padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--line);color:#fff;text-decoration:none;font-size:11px;font-weight:800; }
+  .product-links a[aria-current="page"] { background:rgba(110,56,213,.24);border-color:rgba(110,56,213,.5); }
+  .panel { border-radius:20px;padding:18px;background:linear-gradient(180deg,rgba(24,29,45,.96),rgba(16,20,31,.96)); }
+  .panel:first-of-type { border-top:4px solid var(--aqua); }
+  .status-strip { display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:11px; }
+  .save-chip { padding:7px 10px;border-radius:999px;background:rgba(46,215,222,.1);border:1px solid rgba(46,215,222,.2);color:#d9feff;font-size:11px;font-weight:800; }
+  .entry-actions { display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:12px; }
+  .form-feedback { min-height:18px;color:var(--muted);font-size:12px; }
+  .form-feedback.success { color:#aef7cf; }
+  .form-feedback.error { color:#ffc9ce; }
+  .club { padding:15px;border-radius:18px;transition:border-color .18s ease,transform .18s ease; }
+  .club:hover { border-color:rgba(46,215,222,.24); }
+  .club h3 { margin:0;font-size:18px; }
+  .club-toggle { padding:7px 10px!important;border-radius:999px!important;font-size:11px; }
+  .club-summary { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px; }
+  .club-summary .stat { padding:9px; }
+  .club-summary .stat .v { font-size:17px; }
+  .club-detail { display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--line); }
+  .club.expanded .club-detail { display:block; }
+  .club.expanded { border-color:rgba(46,215,222,.34);transform:translateY(-2px); }
+  .club-detail .stats { margin-top:12px; }
+  button:disabled { cursor:not-allowed;opacity:.5; }
+  @media (max-width:1200px) {
+    .grid-6 { grid-template-columns:repeat(3,minmax(0,1fr))!important; }
+    .grid-5 { grid-template-columns:repeat(3,minmax(0,1fr))!important; }
+    .grid-3 { grid-template-columns:repeat(3,minmax(0,1fr))!important; }
+    .clubs { grid-template-columns:repeat(2,minmax(0,1fr))!important; }
+    .club-inputs { grid-template-columns:repeat(2,minmax(0,1fr))!important; }
+    .stats { grid-template-columns:repeat(3,minmax(0,1fr))!important; }
+    .reasons { grid-template-columns:repeat(2,minmax(0,1fr))!important; }
+  }
+  @media (max-width:720px) {
+    .product-nav { align-items:flex-start;padding:10px 12px; }
+    .product-brand { padding-top:7px; }
+    .product-links { justify-content:flex-end; }
+    .product-links a { font-size:10px;padding:7px 9px; }
+    .wrap { padding:12px; }
+    .grid-6,.grid-5,.grid-3,.clubs,.club-inputs,.reasons { grid-template-columns:1fr!important; }
+    .stats,.club-summary { grid-template-columns:repeat(3,minmax(0,1fr))!important; }
+    .kpi .value { font-size:23px; }
+    h1 { font-size:30px; }
+    .controls { width:100%; }
+    .controls button,.controls .fake-btn { flex:1 1 auto;text-align:center; }
+  }
 </style>
 </head>
 <body>
+<header class="product-nav">
+  <div class="product-brand"><span class="brand-dot"></span>PTR4 Performance</div>
+  <nav class="product-links" aria-label="Portal navigation">
+    <a href="index.html">Command Center</a>
+    <a href="PTR4-EFT-Tracker.html" aria-current="page">EFT</a>
+    <a href="PTR4-TIS-Tracker.html">TIS</a>
+  </nav>
+</header>
 <div class="wrap">
   <div class="panel">
     <div class="topbar">
       <div>
         <h1>PTR4 EFT TRACKER</h1>
-        <div class="sub">Bundled build with visible Starting EFT and Club Goal inputs on every club card. Area map included for Stephon, Domenick, Nathan, and Jeremy.</div>
+        <div class="sub">Track EFT adds, losses, recoveries, and projected month-end pace across every club.</div>
         <div class="line"></div>
+        <div class="status-strip"><span class="save-chip">Saved on this device</span><span class="small">Use Export for backup or handoff.</span></div>
       </div>
       <div class="controls">
         <button class="secondary top-actions-only" onclick="syncRegionBaseline()">Sync Region Baseline</button>
@@ -286,15 +362,15 @@
     </div>
   </div>
 
-  <div class="panel entry-panel">
+  <div class="panel entry-panel" id="entryPanel">
     <h2>Single Entry Bar</h2>
     <div class="grid-6">
       <div>
-        <label>Club</label>
+        <label for="entryClub">Club</label>
         <select id="entryClub"></select>
       </div>
       <div>
-        <label>Type</label>
+        <label for="entryType">Type</label>
         <select id="entryType" onchange="refreshReasonOptions()">
           <option value="sale">Sale</option>
           <option value="cancel">Cancel</option>
@@ -304,32 +380,34 @@
         </select>
       </div>
       <div>
-        <label>Reason</label>
+        <label for="entryReason">Reason</label>
         <select id="entryReason"></select>
       </div>
       <div>
-        <label>Amount</label>
+        <label for="entryAmount">Amount</label>
         <input id="entryAmount" type="number" step="0.01" placeholder="0.00">
       </div>
       <div>
-        <label>Date</label>
+        <label for="entryDate">Date</label>
         <input id="entryDate" type="date">
       </div>
       <div>
-        <label>Note</label>
+        <label for="entryNote">Note</label>
         <input id="entryNote" type="text" placeholder="Optional">
       </div>
     </div>
-    <div style="margin-top:12px">
+    <div class="entry-actions">
       <button onclick="addEntry()">Add Entry</button>
+      <button class="secondary" id="undoEntryBtn" onclick="undoLastEntry()" disabled>Undo Last Entry</button>
+      <div class="form-feedback" id="entryFeedback" aria-live="polite"></div>
     </div>
   </div>
 
-  <div class="panel filters-panel">
+  <div class="panel filters-panel" id="regionControls">
     <h2>Region Controls</h2>
     <div class="grid-5">
       <div>
-        <label>View</label>
+        <label for="datePreset">View</label>
         <select id="datePreset" onchange="applyPreset()">
           <option value="month">Month to Date</option>
           <option value="week">Week to Date</option>
@@ -339,26 +417,26 @@
         </select>
       </div>
       <div>
-        <label>Start</label>
+        <label for="filterStart">Start</label>
         <input id="filterStart" type="date" onchange="render()">
       </div>
       <div>
-        <label>End</label>
+        <label for="filterEnd">End</label>
         <input id="filterEnd" type="date" onchange="render()">
       </div>
       <div>
-        <label>Region Starting EFT</label>
+        <label for="regionStart">Region Starting EFT</label>
         <input id="regionStart" type="number" step="0.01" placeholder="0.00" oninput="saveState(); render();">
       </div>
       <div>
-        <label>Region Goal</label>
+        <label for="regionGoal">Region Goal</label>
         <input id="regionGoal" type="number" step="0.01" placeholder="0.00" oninput="saveState(); render();">
       </div>
     </div>
     <div class="small" style="margin-top:10px;">Use club cards for Starting EFT by location. Use Sync Region Baseline when you want the region baseline to match club totals.</div>
   </div>
 
-  <div class="panel">
+  <div class="panel" id="regionRollup">
     <h2>Region Rollup</h2>
     <div id="activeFilter" class="sub" style="margin-bottom:12px;"></div>
     <div class="grid-6">
@@ -371,7 +449,7 @@
     </div>
   </div>
 
-  <div class="grid-3" style="margin-bottom:16px;">
+  <div class="grid-3" id="exceptionBoards" style="margin-bottom:16px;">
     <div class="board">
       <h3>Top Net Gainers</h3>
       <div id="boardGainers"></div>
@@ -388,7 +466,7 @@
 
   <div class="panel">
     <h2>Club Cards</h2>
-    <div class="small" style="margin-bottom:12px;">Each club card includes visible Starting EFT and Club Goal inputs.</div>
+    <div class="small" style="margin-bottom:12px;">Open a club to edit its baseline, review drivers, and see the recommended coaching action.</div>
     <div id="clubsGrid" class="clubs"></div>
   </div>
 
@@ -461,6 +539,8 @@ function defaultState() {
 }
 
 let state = loadState();
+let expandedClub = null;
+let lastAddedEntryId = null;
 
 function loadState() {
   try {
@@ -520,6 +600,14 @@ function last7Str() {
 }
 
 function init() {
+  const wrap = document.querySelector(".wrap");
+  const rollup = document.getElementById("regionRollup");
+  const boards = document.getElementById("exceptionBoards");
+  const entryPanel = document.getElementById("entryPanel");
+  if (wrap && rollup && boards && entryPanel) {
+    wrap.insertBefore(rollup, entryPanel);
+    wrap.insertBefore(boards, entryPanel);
+  }
   document.getElementById("entryClub").innerHTML = CLUBS.map(c => `<option value="${c}">${c}</option>`).join("");
   document.getElementById("entryDate").value = today();
   document.getElementById("regionStart").value = state.regionStart || "";
@@ -568,18 +656,51 @@ function addEntry() {
   const amount = Number(document.getElementById("entryAmount").value || 0);
   const date = document.getElementById("entryDate").value || today();
   const note = document.getElementById("entryNote").value || "";
+  const feedback = document.getElementById("entryFeedback");
   if (!club || amount <= 0) {
-    alert("Enter a club and valid amount.");
+    feedback.textContent = "Choose a club and enter an amount greater than zero.";
+    feedback.className = "form-feedback error";
     return;
   }
-  state.clubData[club].entries.push({
+  const entry = {
     id: String(Date.now() + Math.random()),
     type, reason, amount, date, note, month: monthKey(date), resolved: false
-  });
+  };
+  state.clubData[club].entries.push(entry);
+  lastAddedEntryId = entry.id;
   document.getElementById("entryAmount").value = "";
   document.getElementById("entryNote").value = "";
+  feedback.textContent = `${money(amount)} ${type} entry saved for ${club}.`;
+  feedback.className = "form-feedback success";
+  document.getElementById("undoEntryBtn").disabled = false;
   saveState();
   render();
+}
+
+function undoLastEntry() {
+  if (!lastAddedEntryId) return;
+  let removed = null;
+  CLUBS.some(club => {
+    const entries = state.clubData[club].entries;
+    const index = entries.findIndex(entry => entry.id === lastAddedEntryId);
+    if (index < 0) return false;
+    removed = {club, entry:entries[index]};
+    entries.splice(index,1);
+    return true;
+  });
+  if (!removed) return;
+  saveState();
+  render();
+  const feedback = document.getElementById("entryFeedback");
+  feedback.textContent = `Removed the last ${removed.entry.type} entry from ${removed.club}.`;
+  feedback.className = "form-feedback success";
+  lastAddedEntryId = null;
+  document.getElementById("undoEntryBtn").disabled = true;
+}
+
+function toggleClub(club) {
+  expandedClub = expandedClub === club ? null : club;
+  renderClubs();
 }
 
 function clubTotals(club) {
@@ -772,20 +893,30 @@ function renderClubs() {
     const cancelReasons = topFive(t.reasonsCancel);
     const softReasons = topFive(t.reasonsSoft);
     return `
-      <div class="club">
+      <div class="club ${expandedClub === club ? "expanded" : ""}">
         <div class="club-head">
           <h3>${club}</h3>
-          <div class="badge ${statusClass(t.net)}">${statusText(t.net)}</div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="badge ${statusClass(t.net)}">${statusText(t.net)}</div>
+            <button class="secondary club-toggle" type="button" aria-expanded="${expandedClub === club}" aria-controls="club-detail-${normalizeAreaClubName(club)}" onclick="toggleClub('${club}')">${expandedClub === club ? "Close" : "Open"}</button>
+          </div>
         </div>
 
+        <div class="club-summary">
+          <div class="stat"><div class="t">Net change</div><div class="v ${statusClass(t.net)}">${money(t.net)}</div></div>
+          <div class="stat"><div class="t">Projected</div><div class="v">${money(t.projected)}</div></div>
+          <div class="stat"><div class="t">Goal</div><div class="v">${money(cd.goal)}</div></div>
+        </div>
+
+        <div class="club-detail" id="club-detail-${normalizeAreaClubName(club)}">
         <div class="club-inputs">
           <div>
-            <label>Starting EFT</label>
-            <input type="number" step="0.01" value="${cd.startingEFT || ""}" oninput="updateClubField('${club}','startingEFT',this.value)">
+            <label for="start-${normalizeAreaClubName(club)}">Starting EFT</label>
+            <input id="start-${normalizeAreaClubName(club)}" aria-label="${club} starting EFT" type="number" step="0.01" value="${cd.startingEFT || ""}" oninput="updateClubField('${club}','startingEFT',this.value)">
           </div>
           <div>
-            <label>Club Goal</label>
-            <input type="number" step="0.01" value="${cd.goal || ""}" oninput="updateClubField('${club}','goal',this.value)">
+            <label for="goal-${normalizeAreaClubName(club)}">Club Goal</label>
+            <input id="goal-${normalizeAreaClubName(club)}" aria-label="${club} EFT goal" type="number" step="0.01" value="${cd.goal || ""}" oninput="updateClubField('${club}','goal',this.value)">
           </div>
         </div>
 
@@ -810,6 +941,7 @@ function renderClubs() {
         </div>
 
         <div class="coach">${coachLine(t)}</div>
+        </div>
       </div>
     `;
   }).join("");
